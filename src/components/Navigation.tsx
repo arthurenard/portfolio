@@ -1,0 +1,144 @@
+"use client";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/providers/ThemeProvider";
+import Image from "next/image";
+import { navigationItems } from "@/data/navigation";
+
+export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
+  // Track scroll position to change navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm"
+          : "bg-transparent"
+      }`}
+    >
+      <nav className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo - only visible when scrolled */}
+          <a
+            href="#"
+            className={`transition-all duration-300 ${
+              scrolled ? "opacity-100 scale-100" : "opacity-0 scale-75"
+            }`}
+          >
+            <div className="w-10 h-10 relative transition-transform">
+              <Image
+                src="/sticker-smile.webp"
+                alt="Arthur Renard"
+                fill
+                className="object-cover rounded-full hover:scale-110 transition-transform"
+              />
+            </div>
+          </a>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navigationItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="font-medium text-gray-700 dark:text-gray-200 transition-colors hover:text-indigo-600 dark:hover:text-indigo-400"
+              >
+                <span className="inline-block transition-transform hover:scale-110">
+                  {item.label}
+                </span>
+              </a>
+            ))}
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle theme"
+            >
+              <span className="inline-block transition-transform hover:scale-110">
+                {theme === "dark" ? (
+                  <Sun className="w-5 h-5 text-gray-300 hover:text-indigo-400" />
+                ) : (
+                  <Moon className="w-5 h-5 text-gray-600 hover:text-indigo-600" />
+                )}
+              </span>
+            </button>
+          </div>
+
+          {/* Mobile Menu Button and Theme Toggle */}
+          <div className="md:hidden flex items-center gap-4">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle theme"
+            >
+              <span className="inline-block transition-transform hover:scale-110">
+                {theme === "dark" ? (
+                  <Sun className="w-5 h-5 text-gray-300 hover:text-indigo-400" />
+                ) : (
+                  <Moon className="w-5 h-5 text-gray-600 hover:text-indigo-600" />
+                )}
+              </span>
+            </button>
+
+            {/* Menu Toggle Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            >
+              <span className="inline-block transition-transform hover:scale-110">
+                {isOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm"
+          >
+            <div className="container mx-auto px-4 py-4 space-y-4">
+              {navigationItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className="block font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
