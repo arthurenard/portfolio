@@ -1,10 +1,35 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import localFont from 'next/font/local'
 
-const inter = Inter({ subsets: ["latin"] });
+// Define the Inter font locally
+const inter = localFont({
+  src: [
+    {
+      path: './fonts/Inter-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Inter-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Inter-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: './fonts/Inter-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   title: "Arthur Renard | AI Researcher & Mathematician",
