@@ -5,8 +5,28 @@ import { useTheme } from "@/providers/ThemeProvider";
 export default function MouseGradient() {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
   const { theme } = useTheme();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Skip mouse tracking on mobile devices
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       // Calculate mouse position as percentage of viewport
       const x = e.clientX / window.innerWidth;
@@ -19,18 +39,17 @@ export default function MouseGradient() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
-    // Create a radial gradient that follows the mouse
-    // The blue color will be at the mouse position, fading to pink at the edges
+    // Skip gradient effect on mobile devices
+    if (isMobile) return;
 
     // Convert mouse position to percentage values for CSS
     const xPercent = mousePosition.x * 100;
     const yPercent = mousePosition.y * 100;
 
-    // Set the gradient type based on mouse position
-    // We'll use a radial gradient centered on the mouse position
+    // Set the gradient position based on mouse position
     const gradientPosition = `at ${xPercent}% ${yPercent}%`;
 
     // Light theme colors - smaller blue circle and more intense colors
@@ -47,7 +66,7 @@ export default function MouseGradient() {
         `radial-gradient(${gradientPosition}, rgba(129, 140, 248, 1) 0%, rgba(129, 140, 248, 0.9) 20%, rgba(167, 139, 250, 0.95) 40%, rgba(244, 114, 182, 1) 100%)`
       );
     }
-  }, [mousePosition, theme]);
+  }, [mousePosition, theme, isMobile]);
 
   return null; // This component doesn't render anything
 }

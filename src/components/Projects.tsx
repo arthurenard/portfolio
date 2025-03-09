@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,211 +21,199 @@ interface Project {
   image?: string;
 }
 
-// Define the ProjectCardProps type
-interface ProjectCardProps {
-  project: Project;
-  index: number;
-  isMobile: boolean;
+// Define the Projects component props
+interface ProjectsProps {
+  isStandalonePage?: boolean;
 }
 
-export default function Projects() {
-  const ref = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
+// Define the ProjectCard props
+interface ProjectCardProps {
+  project: Project;
+  isMobile: boolean;
+  isStandalonePage?: boolean;
+}
 
+export default function Projects({ isStandalonePage = false }: ProjectsProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if the device is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
+    // Initial check
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
+
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.5, 0.8, 1],
-    [1, 1, 1, 1, 0.7]
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.5, 0.8, 1],
-    [1, 1, 1, 1, 0.9]
-  );
-
   return (
-    <motion.section
-      ref={ref}
-      style={{ opacity, scale }}
+    <section
       id="projects"
-      className="py-24 md:py-32 relative overflow-hidden"
+      ref={ref}
+      className={`py-16 ${isStandalonePage ? "" : "min-h-screen"}`}
     >
-      {/* Add a subtle fade at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background/50 to-transparent pointer-events-none" />
+      {!isStandalonePage && (
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-white">
+            Projects
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
+            Here are some of my recent projects. Click on each for more details.
+          </p>
+        </div>
+      )}
 
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.h2
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: isMobile ? 0.4 : 0.8 }}
-          className="text-4xl md:text-5xl font-bold pb-16 text-center mouse-gradient-text"
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          initial={isStandalonePage ? undefined : { opacity: 0 }}
+          animate={isStandalonePage ? undefined : isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={isStandalonePage ? undefined : { staggerChildren: 0.2 }}
         >
-          Projects
-        </motion.h2>
-        <div className="space-y-12 md:space-y-32">
-          {projects.map((project, index) => (
-            <ProjectCard 
-              key={index} 
-              project={project} 
-              index={index} 
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
               isMobile={isMobile}
+              isStandalonePage={isStandalonePage}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 
-function ProjectCard({ project, index, isMobile }: ProjectCardProps) {
-  const ref = useRef(null);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const isInView = useInView(ref, { 
-    once: false, 
-    margin: isMobile ? "-50px" : "-100px" 
-  });
+function ProjectCard({ project, isMobile, isStandalonePage = false }: ProjectCardProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
-  // Function to truncate text to 5 lines
+  // Skip animations on mobile or standalone page for better performance
+  const shouldAnimate = !isMobile && !isStandalonePage;
+
+  // Function to truncate description if needed
   const truncateDescription = (text: string) => {
-    const words = text.split(' ');
-    const truncated = words.slice(0, 35).join(' '); // Approximately 5 lines
-    return truncated + (words.length > 35 ? '...' : '');
+    if (text.length > 150 && !isStandalonePage) {
+      return text.substring(0, 150) + "...";
+    }
+    return text;
   };
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 25 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
-      transition={{ 
-        duration: isMobile ? 0.4 : 0.8, 
-        delay: isMobile ? 0.05 : 0.1 
-      }}
-      className={`flex flex-col ${
-        index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-      } gap-8 md:gap-12`}
+      initial={shouldAnimate ? { y: 50, opacity: 0 } : undefined}
+      animate={shouldAnimate ? (isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }) : undefined}
+      transition={shouldAnimate ? { type: "spring", damping: 20, stiffness: 100 } : undefined}
+      className={`bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full border border-gray-100 dark:border-gray-700 ${
+        isStandalonePage ? "p-6" : ""
+      }`}
     >
-      <div className="flex-1 space-y-4">
-        <h3 className="text-2xl md:text-3xl font-bold">{project.title}</h3>
+      {/* Project image if available */}
+      {project.image && (
+        <div className="relative w-full h-48 overflow-hidden">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-500 hover:scale-105"
+          />
+        </div>
+      )}
+
+      <div className="p-6 flex-grow">
+        <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">
+          {project.title}
+        </h3>
         {project.subtitle && (
-          <p className="text-indigo-600 dark:text-indigo-400 text-sm font-medium italic">
+          <p className="text-sm text-indigo-600 dark:text-indigo-400 mb-3">
             {project.subtitle}
           </p>
         )}
-        <div className="relative">
-          <p className="text-gray-600 dark:text-gray-300">
-            {isMobile && !isExpanded 
-              ? truncateDescription(project.description)
-              : project.description}
-          </p>
-          {isMobile && project.description.split(' ').length > 35 && (
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="text-indigo-600 dark:text-indigo-400 text-sm font-medium mt-2 hover:underline focus:outline-none"
-            >
-              {isExpanded ? 'Show less' : 'Read more'}
-            </button>
-          )}
-        </div>
-        <div className="flex flex-wrap gap-2 pt-2">
-          {project.tech.map((tech, i) => (
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          {truncateDescription(project.description)}
+        </p>
+
+        {/* Tech stack */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tech.map((tech) => (
             <Badge
-              key={i}
+              key={tech}
               variant="outline"
-              className="dark:bg-gray-800/80 dark:text-gray-200 backdrop-blur-sm"
+              className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
             >
               {tech}
             </Badge>
           ))}
         </div>
-        <div className="flex flex-wrap gap-4 pt-4">
-          {project.github && (
+      </div>
+
+      {/* Project links */}
+      <div className="px-6 pb-6 flex flex-wrap gap-3">
+        {project.github && (
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="flex items-center gap-1"
+          >
             <Link
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button
-                variant="outline"
-                size="sm"
-                className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800/80 backdrop-blur-sm"
-              >
-                <Github className="w-4 h-4 mr-2" />
-                GitHub
-              </Button>
+              <Github className="h-4 w-4" />
+              <span>GitHub</span>
             </Link>
-          )}
-          {project.demo && (
-            <Link href={project.demo} target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="outline"
-                size="sm"
-                className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800/80 backdrop-blur-sm"
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Demo
-              </Button>
-            </Link>
-          )}
-          {project.paper && (
-            <Link
-              href={project.paper}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button
-                variant="outline"
-                size="sm"
-                className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800/80 backdrop-blur-sm"
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                Paper
-              </Button>
-            </Link>
-          )}
-          {project.arxiv && (
-            <Link
-              href={project.arxiv}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button
-                variant="outline"
-                size="sm"
-                className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800/80 backdrop-blur-sm"
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                arXiv
-              </Button>
-            </Link>
-          )}
-        </div>
-      </div>
-      <div className="flex-1 h-[300px] md:h-[400px] bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-xl shadow-lg relative overflow-hidden">
-        {project.image && (
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-          />
+          </Button>
         )}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 dark:from-indigo-400/10 dark:to-purple-400/10" />
+        {project.demo && (
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="flex items-center gap-1"
+          >
+            <Link href={project.demo} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="h-4 w-4" />
+              <span>Demo</span>
+            </Link>
+          </Button>
+        )}
+        {project.paper && (
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="flex items-center gap-1"
+          >
+            <Link href={project.paper} target="_blank" rel="noopener noreferrer">
+              <FileText className="h-4 w-4" />
+              <span>Paper</span>
+            </Link>
+          </Button>
+        )}
+        {project.arxiv && (
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="flex items-center gap-1"
+          >
+            <Link href={project.arxiv} target="_blank" rel="noopener noreferrer">
+              <FileText className="h-4 w-4" />
+              <span>arXiv</span>
+            </Link>
+          </Button>
+        )}
       </div>
     </motion.div>
   );

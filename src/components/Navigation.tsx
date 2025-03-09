@@ -5,11 +5,14 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/providers/ThemeProvider";
 import Image from "next/image";
 import { navigationItems } from "@/data/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
 
   // Track scroll position to change navbar background
   useEffect(() => {
@@ -25,21 +28,28 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Check if the current path matches the navigation item
+  const isActive = (href: string) => {
+    if (href === "/" && pathname === "/") return true;
+    if (href !== "/" && pathname.startsWith(href)) return true;
+    return false;
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || pathname !== "/"
           ? "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm"
           : "bg-transparent"
       }`}
     >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo - only visible when scrolled */}
-          <a
-            href="#"
+          {/* Logo - always visible on pages, only visible when scrolled on homepage */}
+          <Link
+            href="/"
             className={`transition-all duration-300 ${
-              scrolled ? "opacity-100 scale-100" : "opacity-0 scale-75"
+              scrolled || pathname !== "/" ? "opacity-100 scale-100" : "opacity-0 scale-75"
             }`}
           >
             <div className="w-10 h-10 relative transition-transform">
@@ -50,20 +60,24 @@ export default function Navigation() {
                 className="object-cover rounded-full hover:scale-110 transition-transform"
               />
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navigationItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
-                className="font-medium text-gray-700 dark:text-gray-200 transition-colors hover:text-indigo-600 dark:hover:text-indigo-400"
+                className={`font-medium transition-colors ${
+                  isActive(item.href)
+                    ? "text-indigo-600 dark:text-indigo-400"
+                    : "text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
+                }`}
               >
                 <span className="inline-block transition-transform hover:scale-110">
                   {item.label}
                 </span>
-              </a>
+              </Link>
             ))}
 
             {/* Theme Toggle Button */}
@@ -126,14 +140,18 @@ export default function Navigation() {
           >
             <div className="container mx-auto px-4 py-4 space-y-4">
               {navigationItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="block font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  className={`block font-medium transition-colors ${
+                    isActive(item.href)
+                      ? "text-indigo-600 dark:text-indigo-400"
+                      : "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                  }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>

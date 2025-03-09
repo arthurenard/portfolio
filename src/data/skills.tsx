@@ -35,7 +35,7 @@ export const skills: SkillGroup[] = [
       "Mathematical Reasoning",
       "LLMs",
       "Symbolic Regression",
-      "Statistical Field Theory",
+      "Discrete Optimization",
     ],
   },
 ];
