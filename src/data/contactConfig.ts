@@ -4,43 +4,13 @@ export const contactConfig = {
   emailService: {
     // Choose your email service: 'sendgrid', 'mailgun', 'aws-ses', 'smtp', 'none'
     // 'none' will just log the submissions to the console (useful for development)
-    provider: 'none',
+    provider: 'sendgrid',
     
     // SendGrid configuration (if using SendGrid)
     sendgrid: {
       apiKey: process.env.SENDGRID_API_KEY || '',
-      fromEmail: 'your-website@example.com',
-      toEmail: 'your-email@example.com',
-    },
-    
-    // Mailgun configuration (if using Mailgun)
-    mailgun: {
-      apiKey: process.env.MAILGUN_API_KEY || '',
-      domain: process.env.MAILGUN_DOMAIN || '',
-      fromEmail: 'your-website@example.com',
-      toEmail: 'your-email@example.com',
-    },
-    
-    // AWS SES configuration (if using AWS SES)
-    awsSes: {
-      region: process.env.AWS_REGION || 'us-east-1',
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
-      fromEmail: 'your-website@example.com',
-      toEmail: 'your-email@example.com',
-    },
-    
-    // SMTP configuration (if using SMTP)
-    smtp: {
-      host: process.env.SMTP_HOST || '',
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: process.env.SMTP_USER || '',
-        pass: process.env.SMTP_PASS || '',
-      },
-      fromEmail: 'your-website@example.com',
-      toEmail: 'your-email@example.com',
+      fromEmail: 'arthurenard@icloud.com',
+      toEmail: 'arthurenard@icloud.com',
     },
   },
   

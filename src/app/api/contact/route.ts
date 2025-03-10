@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { contactConfig } from '@/data/contactConfig';
+// Import SendGrid if provider is sendgrid
+import sgMail from '@sendgrid/mail';
 
 // Function to send email based on the configured provider
 async function sendEmail(data: {
@@ -29,93 +31,52 @@ async function sendEmail(data: {
   // Send email based on the configured provider
   switch (config.provider) {
     case 'sendgrid':
-      // Uncomment and install @sendgrid/mail to use SendGrid
-      // const sgMail = require('@sendgrid/mail');
-      // sgMail.setApiKey(config.sendgrid.apiKey);
-      // const msg = {
-      //   to: config.sendgrid.toEmail,
-      //   from: config.sendgrid.fromEmail,
-      //   subject: formattedSubject,
-      //   text: textContent,
-      //   html: htmlContent,
-      // };
-      // await sgMail.send(msg);
-      console.log('SendGrid would send:', { to: config.sendgrid.toEmail, subject: formattedSubject });
-      break;
-      
-    case 'mailgun':
-      // Uncomment and install mailgun-js to use Mailgun
-      // const mailgun = require('mailgun-js')({
-      //   apiKey: config.mailgun.apiKey,
-      //   domain: config.mailgun.domain,
-      // });
-      // const data = {
-      //   from: config.mailgun.fromEmail,
-      //   to: config.mailgun.toEmail,
-      //   subject: formattedSubject,
-      //   text: textContent,
-      //   html: htmlContent,
-      // };
-      // await mailgun.messages().send(data);
-      console.log('Mailgun would send:', { to: config.mailgun.toEmail, subject: formattedSubject });
-      break;
-      
-    case 'aws-ses':
-      // Uncomment and install aws-sdk to use AWS SES
-      // const AWS = require('aws-sdk');
-      // AWS.config.update({
-      //   region: config.awsSes.region,
-      //   accessKeyId: config.awsSes.accessKeyId,
-      //   secretAccessKey: config.awsSes.secretAccessKey,
-      // });
-      // const ses = new AWS.SES({ apiVersion: '2010-12-01' });
-      // const params = {
-      //   Destination: {
-      //     ToAddresses: [config.awsSes.toEmail],
-      //   },
-      //   Message: {
-      //     Body: {
-      //       Html: {
-      //         Charset: 'UTF-8',
-      //         Data: htmlContent,
-      //       },
-      //       Text: {
-      //         Charset: 'UTF-8',
-      //         Data: textContent,
-      //       },
-      //     },
-      //     Subject: {
-      //       Charset: 'UTF-8',
-      //       Data: formattedSubject,
-      //     },
-      //   },
-      //   Source: config.awsSes.fromEmail,
-      // };
-      // await ses.sendEmail(params).promise();
-      console.log('AWS SES would send:', { to: config.awsSes.toEmail, subject: formattedSubject });
-      break;
-      
-    case 'smtp':
-      // Uncomment and install nodemailer to use SMTP
-      // const nodemailer = require('nodemailer');
-      // const transporter = nodemailer.createTransport({
-      //   host: config.smtp.host,
-      //   port: config.smtp.port,
-      //   secure: config.smtp.secure,
-      //   auth: {
-      //     user: config.smtp.auth.user,
-      //     pass: config.smtp.auth.pass,
-      //   },
-      // });
-      // await transporter.sendMail({
-      //   from: config.smtp.fromEmail,
-      //   to: config.smtp.toEmail,
-      //   subject: formattedSubject,
-      //   text: textContent,
-      //   html: htmlContent,
-      // });
-      console.log('SMTP would send:', { to: config.smtp.toEmail, subject: formattedSubject });
-      break;
+      try {
+        // Check if API key is set
+        if (!config.sendgrid.apiKey) {
+          console.error('SendGrid API key is not set');
+          throw new Error('Email service is not properly configured');
+        }
+        
+        // Set the API key
+        sgMail.setApiKey(config.sendgrid.apiKey);
+        
+        // Create the message
+        const msg = {
+          to: config.sendgrid.toEmail,
+          from: config.sendgrid.fromEmail,
+          subject: formattedSubject,
+          text: textContent,
+          html: htmlContent,
+        };
+        
+        console.log('Attempting to send email with SendGrid:', {
+          to: msg.to,
+          from: msg.from,
+          subject: msg.subject
+        });
+        
+        // Send the email
+        const response = await sgMail.send(msg);
+        console.log('SendGrid API response:', response[0].statusCode);
+        
+        if (response[0].statusCode >= 200 && response[0].statusCode < 300) {
+          console.log('Email sent successfully');
+          return true;
+        } else {
+          console.error('SendGrid returned non-success status code:', response[0].statusCode);
+          throw new Error('Failed to send email');
+        }
+      } catch (error: unknown) {
+        console.error('Error sending email with SendGrid:', error);
+        if (error && typeof error === 'object' && 'response' in error && error.response) {
+          const response = error.response as { body?: { errors?: Array<{ message: string }> } };
+          console.error('SendGrid API error response:', response.body);
+        }
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error('Failed to send email: ' + errorMessage);
+      }
+
       
     case 'none':
     default:
@@ -184,6 +145,7 @@ export async function POST(request: Request) {
     }
     
     const data = await request.json();
+    console.log('Received form submission:', data);
     
     // Validate the data
     if (!data.name || !data.email || !data.subject || !data.message) {
@@ -209,10 +171,11 @@ export async function POST(request: Request) {
       { message: 'Message sent successfully' },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error processing contact form:', error);
+    const errorMessage = error instanceof Error ? error.message : contactConfig.form.errorMessage;
     return NextResponse.json(
-      { error: contactConfig.form.errorMessage },
+      { error: errorMessage },
       { status: 500 }
     );
   }
