@@ -1,12 +1,10 @@
-import { Metadata } from "next";
 import Experience from "@/components/Experience";
 import MouseGradient from "@/components/MouseGradient";
 import ScrollRestoration from "@/components/ScrollRestoration";
+import { getPageMetadata } from "@/data/seo";
+import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Experience | Arthur Renard",
-  description: "Professional experience of Arthur Renard, including research work at EPFL, teaching experience, and industry projects.",
-};
+export const metadata: Metadata = getPageMetadata("experience");
 
 export default function ExperiencePage() {
   return (

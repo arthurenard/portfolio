@@ -2,11 +2,9 @@ import { Metadata } from "next";
 import About from "@/components/About";
 import MouseGradient from "@/components/MouseGradient";
 import ScrollRestoration from "@/components/ScrollRestoration";
+import { getPageMetadata } from "@/data/seo";
 
-export const metadata: Metadata = {
-  title: "About Me | Arthur Renard",
-  description: "Personal background, education journey, skills and expertise of Arthur Renard.",
-};
+export const metadata: Metadata = getPageMetadata("about");
 
 export default function AboutPage() {
   return (

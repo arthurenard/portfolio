@@ -2,11 +2,9 @@ import { Metadata } from "next";
 import Contact from "@/components/Contact";
 import MouseGradient from "@/components/MouseGradient";
 import ScrollRestoration from "@/components/ScrollRestoration";
+import { getPageMetadata } from "@/data/seo";
 
-export const metadata: Metadata = {
-  title: "Contact | Arthur Renard",
-  description: "Professional contact information and links to professional networks of Arthur Renard.",
-};
+export const metadata: Metadata = getPageMetadata("contact");
 
 export default function ContactPage() {
   return (

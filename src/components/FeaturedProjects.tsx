@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Github, ExternalLink, FileText } from "lucide-react";
+import { ArrowRight, Github, ExternalLink, FileText, Clock } from "lucide-react";
 import { projects } from "@/data/projects";
 
 // Define the Project type to match the actual structure
@@ -17,6 +17,7 @@ interface Project {
   paper?: string;
   arxiv?: string;
   image?: string;
+  comingSoon?: string;
 }
 
 export default function FeaturedProjects() {
@@ -81,10 +82,10 @@ export default function FeaturedProjects() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 mouse-gradient-text inline-block">
-            Featured Projects
+            Featured Research Projects
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Highlights of my recent work in AI research and development
+            Exploring AI, mathematical reasoning, and symbolic regression at EPFL and ETH Zürich
           </p>
         </motion.div>
 
@@ -150,6 +151,14 @@ export default function FeaturedProjects() {
                     : project.description}
                 </p>
 
+                <Link
+                  href="/projects"
+                  className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors group mt-2 mb-4 w-fit"
+                >
+                  <span>Learn More</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+
                 <div className="flex flex-wrap gap-4 pt-4">
                   {project.github && (
                     <a
@@ -183,6 +192,12 @@ export default function FeaturedProjects() {
                       <FileText className="w-4 h-4" />
                       <span>arXiv</span>
                     </a>
+                  )}
+                  {project.comingSoon && (
+                    <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+                      <Clock className="w-4 h-4" />
+                      <span>{project.comingSoon}</span>
+                    </div>
                   )}
                 </div>
               </div>

@@ -1,16 +1,38 @@
-import { Metadata } from "next";
 import Projects from "@/components/Projects";
 import MouseGradient from "@/components/MouseGradient";
 import ScrollRestoration from "@/components/ScrollRestoration";
+import { getPageMetadata } from "@/data/seo";
+import { getResearchProjectSchema } from "@/data/structuredData";
+import { projects } from "@/data/projects";
+import Script from "next/script";
+import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Projects | Arthur Renard",
-  description: "Detailed showcase of Arthur Renard's work including Phase Transition Finder and Balelec website/app.",
-};
+export const metadata: Metadata = getPageMetadata("projects");
 
 export default function ProjectsPage() {
+  // Get structured data for academic projects
+  const academicProjects = projects.filter(project => project.category === "academic");
+  const projectSchemas = academicProjects.map(project => 
+    getResearchProjectSchema({
+      title: project.title,
+      description: project.description,
+      image: project.image,
+      url: project.github || project.arxiv || undefined
+    })
+  );
+
   return (
     <main className="min-h-screen relative pt-20">
+      {/* Structured data */}
+      {projectSchemas.map((schema, index) => (
+        <Script
+          key={`schema-project-${index}`}
+          id={`schema-project-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      
       {/* Scroll restoration */}
       <ScrollRestoration />
 

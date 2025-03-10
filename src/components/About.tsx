@@ -3,8 +3,9 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { skills } from "@/data/skills";
 import { education } from "@/data/experience";
+import { personalInfo, certifications } from "@/data/contact";
+import { aboutData } from "@/data/about";
 import Image from "next/image";
-import { GraduationCap } from "lucide-react";
 
 // Define the About component props
 interface AboutProps {
@@ -44,10 +45,10 @@ export default function About({ isStandalonePage = false }: AboutProps) {
       {!isStandalonePage && (
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-white">
-            About Me
+            {aboutData.title}
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-            Learn about my background, education, and skills.
+            {aboutData.description}
           </p>
         </div>
       )}
@@ -62,21 +63,17 @@ export default function About({ isStandalonePage = false }: AboutProps) {
           {/* About Text */}
           <div className="order-2 md:order-1">
             <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
-              Applied Mathematician & AI Researcher
+              {aboutData.subtitle}
             </h3>
             <div className="space-y-4 text-gray-600 dark:text-gray-300">
               <p>
-                I&apos;m an innovative applied mathematician and research assistant exploring the frontiers of AI, with expertise in mathematical reasoning and large language models. Currently, I&apos;m working at EPFL&apos;s Chair of Statistical Field Theory under Prof. C. Hongler, investigating the capabilities of Transformers in mathematical reasoning.
+                {personalInfo.summary}
               </p>
-              <p>
-                My academic journey has taken me through EPFL for my Bachelor&apos;s in Mathematics, ETH Zürich for my Master&apos;s in Applied Mathematics, and included an exchange year at KTH Royal Institute of Technology in Stockholm.
-              </p>
-              <p>
-                I&apos;m passionate about cutting-edge research and contributing to transformative advancements in AI. My work includes developing discrete optimization methods in embedding space to minimize cross-entropy loss and exploring their effects on the security and inference processes of LLMs.
-              </p>
-              <p>
-                I&apos;m also proud to have co-authored the &apos;Phase Transition Finder&apos; algorithm to uncover complex behaviors in artificial life, which doubled Lenia&apos;s discovery rate of interesting dynamics in high-dimensional systems.
-              </p>
+              {aboutData.paragraphs.map((paragraph, index) => (
+                <p key={index}>
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
 
@@ -84,12 +81,11 @@ export default function About({ isStandalonePage = false }: AboutProps) {
           <div className="order-1 md:order-2 flex justify-center">
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
               <Image
-                src="/profile.jpg"
-                alt="Arthur Renard"
+                src={aboutData.profileImage.src}
+                alt={aboutData.profileImage.alt}
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-purple-500/10 dark:from-indigo-400/20 dark:to-purple-400/20" />
             </div>
           </div>
         </motion.div>
@@ -102,103 +98,124 @@ export default function About({ isStandalonePage = false }: AboutProps) {
           transition={shouldAnimate ? { duration: 0.5, delay: 0.2 } : undefined}
         >
           <h3 className="text-2xl font-semibold mb-8 text-gray-800 dark:text-white">
-            Education
+            {aboutData.educationTitle}
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {education.map((edu, index) => (
-              <div
-                key={index}
-                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Education Timeline */}
+            <div className="relative flex items-center overflow-visible">
+              <div className="absolute inset-[10%] bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-400/20 dark:to-purple-400/20 rounded-[30px] blur-xl" />
+              <motion.div
+                className="relative bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg w-full"
+                whileHover={{ scale: 1.02 }}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-medium text-gray-800 dark:text-white">
-                      {edu.degree}
-                    </h4>
-                    <p className="text-purple-600 dark:text-purple-400">
-                      {edu.institution}
-                    </p>
-                  </div>
-                  <div className="ml-auto">
-                    <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full text-sm">
-                      {edu.years}
-                    </span>
+                <h3 className="font-bold mb-6 text-xl text-gray-800 dark:text-white">{aboutData.educationSectionTitle}</h3>
+                <div className="space-y-6">
+                  {education.map((edu, index) => (
+                    <motion.div
+                      key={index}
+                      initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+                      animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
+                      transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
+                      className="relative pl-6 border-l border-indigo-200 dark:border-indigo-800"
+                    >
+                      <div className="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-indigo-500 dark:bg-indigo-400" />
+                      <h4 className="font-medium text-lg text-gray-800 dark:text-white">{edu.degree}</h4>
+                      <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                        <span>{edu.institution}</span>
+                        <span>{edu.years}</span>
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {edu.description}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* Skills */}
+            <div className="relative flex items-center overflow-visible">
+              <div className="absolute inset-[10%] bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-400/20 dark:to-purple-400/20 rounded-[30px] blur-xl" />
+              <motion.div
+                className="relative bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg w-full"
+                whileHover={{ scale: 1.02 }}
+              >
+                <h3 className="font-bold mb-6 text-xl text-gray-800 dark:text-white">{aboutData.technicalExpertiseTitle}</h3>
+                
+                {/* Languages Section - Highlighted separately */}
+                <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+                  <h4 className="font-medium text-lg text-gray-800 dark:text-white mb-4 flex items-center">
+                    <div className="text-indigo-600 dark:text-indigo-400 mr-2">
+                      {skills.find(s => s.category === "Languages")?.icon}
+                    </div>
+                    {aboutData.languagesTitle}
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {skills.find(s => s.category === "Languages")?.items.map((language, i) => (
+                      <div 
+                        key={i} 
+                        className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 p-3 rounded-lg border border-indigo-100 dark:border-indigo-800/30 text-center"
+                      >
+                        <div className="font-medium text-gray-800 dark:text-white">{language.split('(')[0].trim()}</div>
+                        {language.includes('(') && (
+                          <div className="text-xs text-indigo-600 dark:text-indigo-400 mt-1">
+                            {language.split('(')[1].replace(')', '')}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </div>
-                {edu.description && (
-                  <p className="text-gray-600 dark:text-gray-300 mt-2">
-                    {edu.description}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Skills Section */}
-        <motion.div
-          className="mt-20"
-          initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
-          animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
-          transition={shouldAnimate ? { duration: 0.5, delay: 0.4 } : undefined}
-        >
-          <h3 className="text-2xl font-semibold mb-8 text-gray-800 dark:text-white">
-            Skills & Expertise
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skills.map((category, index) => (
-              <div
-                key={index}
-                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
-              >
-                <h4 className="text-xl font-medium mb-4 text-gray-800 dark:text-white flex items-center">
-                  {category.icon}
-                  <span className="ml-2">{category.category}</span>
-                </h4>
-                <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-                  {category.items.map((item, i) => (
-                    <li key={i} className="flex items-center">
-                      <div className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400 mr-2" />
-                      {item}
-                    </li>
+                
+                {/* Other Technical Skills */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {skills.filter(skill => skill.category !== "Languages").map((skillGroup, index) => (
+                    <motion.div
+                      key={index}
+                      initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+                      animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
+                      transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
+                      className="space-y-2"
+                    >
+                      <div className="flex items-center gap-2 font-medium text-gray-800 dark:text-white">
+                        <div className="text-indigo-600 dark:text-indigo-400">
+                          {skillGroup.icon}
+                        </div>
+                        <h4>{skillGroup.category}</h4>
+                      </div>
+                      <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        {skillGroup.items.map((item, i) => (
+                          <li key={i} className="flex items-center gap-2">
+                            <span className="w-1 h-1 bg-indigo-500 dark:bg-indigo-400 rounded-full"></span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
                   ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Languages Section */}
-        <motion.div
-          className="mt-20"
-          initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
-          animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
-          transition={shouldAnimate ? { duration: 0.5, delay: 0.6 } : undefined}
-        >
-          <h3 className="text-2xl font-semibold mb-8 text-gray-800 dark:text-white">
-            Languages
-          </h3>
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-lg font-medium text-gray-800 dark:text-white mb-1">French</div>
-                <div className="text-indigo-600 dark:text-indigo-400">Native</div>
-              </div>
-              <div className="text-center">
-                <div className="text-lg font-medium text-gray-800 dark:text-white mb-1">English</div>
-                <div className="text-indigo-600 dark:text-indigo-400">C1 (Cambridge)</div>
-              </div>
-              <div className="text-center">
-                <div className="text-lg font-medium text-gray-800 dark:text-white mb-1">German</div>
-                <div className="text-indigo-600 dark:text-indigo-400">Intermediate</div>
-              </div>
-              <div className="text-center">
-                <div className="text-lg font-medium text-gray-800 dark:text-white mb-1">Dutch</div>
-                <div className="text-indigo-600 dark:text-indigo-400">Basic</div>
-              </div>
+                </div>
+                
+                {/* Certifications */}
+                {certifications.length > 0 && (
+                  <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h4 className="font-medium text-gray-800 dark:text-white mb-4">{aboutData.certificationsTitle}</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {certifications.map((cert, index) => (
+                        <div key={index} className="flex items-center gap-3">
+                          <div className="text-indigo-600 dark:text-indigo-400">
+                            {cert.icon}
+                          </div>
+                          <div>
+                            <div className="font-medium text-gray-800 dark:text-white">{cert.title}</div>
+                            <div className="text-sm text-gray-600 dark:text-gray-400">{cert.level} ({cert.year})</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
             </div>
           </div>
         </motion.div>

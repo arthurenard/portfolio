@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import FooterWrapper from "@/components/FooterWrapper";
 import localFont from 'next/font/local'
+import { getMetadata } from "@/data/seo";
+import { getPersonSchema, getWebsiteSchema } from "@/data/structuredData";
+import Script from "next/script";
 
 // Define the Inter font locally
 const inter = localFont({
@@ -31,46 +35,32 @@ const inter = localFont({
   variable: '--font-inter',
 })
 
-export const metadata: Metadata = {
-  title: "Arthur Renard | AI Researcher & Mathematician",
-  description:
-    "Portfolio of Arthur Renard, AI researcher and mathematician specializing in mathematical reasoning and LLMs.",
-  icons: {
-    icon: [
-      { url: "/favicons/favicon.ico" },
-      { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [
-      {
-        url: "/favicons/apple-touch-icon.png",
-        sizes: "180x180",
-        type: "image/png",
-      },
-    ],
-    other: [
-      {
-        url: "/favicons/android-chrome-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-      {
-        url: "/favicons/android-chrome-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
-    ],
-  },
-  manifest: "/favicons/site.webmanifest",
-};
+// Get metadata from the data folder
+export const metadata: Metadata = getMetadata();
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Get structured data
+  const personSchema = getPersonSchema();
+  const websiteSchema = getWebsiteSchema();
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          id="schema-person"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <Script
+          id="schema-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -80,6 +70,7 @@ export default function RootLayout({
         >
           <Navigation />
           {children}
+          <FooterWrapper />
         </ThemeProvider>
       </body>
     </html>

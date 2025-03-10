@@ -1,11 +1,19 @@
+// Define project categories
+export const projectCategories = {
+  ACADEMIC: "academic",
+  PERSONAL: "personal"
+};
+
 export const projects = [
   {
     title: "Symbolic Math Solver",
     subtitle: "Master's Thesis - ETH Zürich | Supervised by Clément Hongler - EPFL",
     description:
-      "This research explores the intersection of functional equations, symbolic regression, and deep learning through innovative methods. I developed Equation Informed Neural Networks (EINN), a novel framework extending Physics-Informed Neural Networks by incorporating functional equations directly into the neural network training process. Combined with transformer-based symbolic regression, this approach successfully solved complex functional equations from International Mathematical Olympiad problems. The work demonstrates how integrating mathematical knowledge into machine learning models can tackle challenging mathematical problems, particularly in domains requiring interpretable solutions and analytical reasoning.",
+      "This research explores the intersection of functional equations, symbolic regression, and deep learning through innovative methods. I developed Symbolic Math Solver (SMS), a novel framework extending Physics-Informed Neural Networks by incorporating functional equations directly into the neural network training process. Combined with transformer-based symbolic regression, this approach successfully solved complex functional equations from International Mathematical Olympiad problems. The work demonstrates how integrating mathematical knowledge into machine learning models can tackle challenging mathematical problems, particularly in domains requiring interpretable solutions and analytical reasoning.",
     tech: ["PyTorch", "Transformers", "Symbolic Regression", "Functional Equations", "Interpretable ML"],
     image: "/symbolic-reg.webp",
+    category: projectCategories.ACADEMIC,
+    comingSoon: "Paper submission in preparation"
   },  
   {
     title: "Boolformer",
@@ -15,8 +23,9 @@ export const projects = [
     tech: ["PyTorch", "Transformers", "Academic Research","Symbolic Regression", "Interpretable ML"],
     github: "https://github.com/arthurenard/Boolformer",
     image: "/boolformer.png",
-    },
-    {
+    category: projectCategories.ACADEMIC
+  },
+  {
     title: "Phase Transition Finder",
     subtitle: "GECCO 2024 | Vassilis Papadopoulos, Guilhem Doat, Arthur Renard, Clément Hongler - EPFL",
     description:
@@ -25,13 +34,45 @@ export const projects = [
     github: "https://github.com/arthurenard/LeniaPTF",
     arxiv: "https://arxiv.org/abs/2402.17848",
     image: "/ptf.webp",
-    },
+    category: projectCategories.ACADEMIC
+  },
+  {
+    title: "Festival Balélec Website & App",
+    subtitle: "Volunteer Project | Festival Balélec - Europe's largest student festival",
+    description:
+      "Designed and developed the official website and mobile app for Europe's largest student festival, serving over 15,000 participants with real-time event information, schedules, maps, and artist details.",
+    tech: ["Next.js", "TypeScript", "Strapi"],
+    demo: "https://balelec.ch/en",
+    image: "/balelec.webp",
+    category: projectCategories.PERSONAL,
+    iframe: "https://balelec.ch/fr"
+  },
+  {
+    title: "Dental Practice Website",
+    subtitle: "Freelance Project | Professional Website for Dental Practice",
+    description:
+      "Designed and developed a professional website for a dental practice.",
+    tech: ["HTML/CSS", "JavaScript"],
+    demo: "https://www.dentiste-wielandts.be/",
+    category: projectCategories.PERSONAL,
+    iframe: "https://www.dentiste-wielandts.be/"
+  },
+  {
+    title: "DEMECO Workshop Website",
+    subtitle: "Volunteer Project | Academic Workshop Website",
+    description:
+      "Created a professional website for an academic workshop.",
+    tech: ["Next.js", "TypeScript"],
+    demo: "https://www.dem.eco/",
+    category: projectCategories.PERSONAL,
+    iframe: "https://www.dem.eco/"
+  },
   // {
-  //   title: "Festival Balélec Website",
+  //   title: "Portfolio Website",
+  //   subtitle: "Personal Project | Professional Portfolio",
   //   description:
-  //     "Designed and developed the official website and mobile app for Europe's largest student festival, serving over 15,000 participants with real-time event information and ticket management.",
-  //   tech: ["Next.js", "React Native", "TypeScript", "Tailwind CSS"],
-  //   github: "https://github.com/your-repo/balelec",
-  //   demo: "https://balelec.ch/en",
-  // },
+  //     "Designed and developed this portfolio website to showcase my projects, skills, and professional experience using modern web technologies.",
+  //   tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+  //   category: projectCategories.PERSONAL
+  // }
 ];

@@ -17,7 +17,7 @@ export default function Navigation() {
   // Track scroll position to change navbar background
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -39,7 +39,7 @@ export default function Navigation() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled || pathname !== "/"
-          ? "bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm"
+          ? "bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm"
           : "bg-transparent"
       }`}
     >

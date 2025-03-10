@@ -1,8 +1,7 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { GraduationCap, Briefcase } from "lucide-react";
-import { education, workExperience } from "@/data/experience";
+import { workExperience, volunteerExperience } from "@/data/experience";
 
 // Define the Experience component props
 interface ExperienceProps {
@@ -33,6 +32,10 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
   // Skip animations on mobile or standalone page for better performance
   const shouldAnimate = !isMobile && !isStandalonePage;
 
+  // Use the professional and volunteer experiences directly from the data files
+  const professionalExperiences = workExperience;
+  const volunteerExperiences = volunteerExperience;
+
   return (
     <section
       id="experience"
@@ -45,80 +48,77 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
             Experience
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-            My professional journey and educational background.
+            My professional journey and volunteer work.
           </p>
         </div>
       )}
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Professional Experience */}
         <motion.div
-          className="space-y-12"
+          className="mb-20"
           initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
           animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
           transition={shouldAnimate ? { duration: 0.5 } : undefined}
         >
-          {/* Work Experience */}
-          <div>
-            <h3 className="text-2xl font-semibold mb-6 flex items-center text-gray-800 dark:text-white">
-              <Briefcase className="mr-3 h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-              Work Experience
-            </h3>
-            <div className="space-y-8">
-              {workExperience.map((job, index) => (
-                <div
-                  key={index}
-                  className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
-                >
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                    <h4 className="text-xl font-medium text-gray-800 dark:text-white">
-                      {job.position}
-                    </h4>
-                    <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
-                      {job.years}
-                    </span>
-                  </div>
-                  <p className="text-indigo-600 dark:text-indigo-400 mb-3">
-                    {job.company}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {job.description}
-                  </p>
+          <h3 className="text-2xl font-semibold mb-8 text-gray-800 dark:text-white">
+            Professional Experience
+          </h3>
+          
+          <div className="space-y-8">
+            {professionalExperiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+                animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
+                transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
+                className="relative pl-6 border-l border-indigo-200 dark:border-indigo-800"
+              >
+                <div className="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-indigo-500 dark:bg-indigo-400" />
+                <h4 className="font-medium text-lg text-gray-800 dark:text-white">{exp.position}</h4>
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                  <span>{exp.company}</span>
+                  <span>{exp.years}</span>
                 </div>
-              ))}
-            </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {exp.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
+        </motion.div>
 
-          {/* Education */}
-          <div>
-            <h3 className="text-2xl font-semibold mb-6 flex items-center text-gray-800 dark:text-white">
-              <GraduationCap className="mr-3 h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-              Education
-            </h3>
-            <div className="space-y-8">
-              {education.map((edu, index) => (
-                <div
-                  key={index}
-                  className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
-                >
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                    <h4 className="text-xl font-medium text-gray-800 dark:text-white">
-                      {edu.degree}
-                    </h4>
-                    <span className="text-indigo-600 dark:text-indigo-400 text-sm font-medium">
-                      {edu.years}
-                    </span>
-                  </div>
-                  <p className="text-indigo-600 dark:text-indigo-400 mb-3">
-                    {edu.institution}
-                  </p>
-                  {edu.description && (
-                    <p className="text-gray-600 dark:text-gray-300">
-                      {edu.description}
-                    </p>
-                  )}
+        {/* Volunteer Experience */}
+        <motion.div
+          className="mb-10"
+          initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+          animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
+          transition={shouldAnimate ? { duration: 0.5, delay: 0.2 } : undefined}
+        >
+          <h3 className="text-2xl font-semibold mb-8 text-gray-800 dark:text-white">
+            Volunteer Experience
+          </h3>
+          
+          <div className="space-y-8">
+            {volunteerExperiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+                animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
+                transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 + 0.2 } : undefined}
+                className="relative pl-6 border-l border-purple-200 dark:border-purple-800"
+              >
+                <div className="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-purple-500 dark:bg-purple-400" />
+                <h4 className="font-medium text-lg text-gray-800 dark:text-white">{exp.position}</h4>
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                  <span>{exp.company}</span>
+                  <span>{exp.years}</span>
                 </div>
-              ))}
-            </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {exp.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
