@@ -6,6 +6,7 @@ import { education } from "@/data/experience";
 import { personalInfo, certifications } from "@/data/contact";
 import { aboutData } from "@/data/about";
 import Image from "next/image";
+import { formatDateToYear } from "@/lib/utils";
 
 // Define the About component props
 interface AboutProps {
@@ -123,7 +124,7 @@ export default function About({ isStandalonePage = false }: AboutProps) {
                       <h4 className="font-medium text-lg text-gray-800 dark:text-white">{edu.degree}</h4>
                       <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
                         <span>{edu.institution}</span>
-                        <span>{edu.years}</span>
+                        <span>{formatDateToYear(edu.years)}</span>
                       </div>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
                         {edu.description}

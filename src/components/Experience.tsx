@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { workExperience, volunteerExperience } from "@/data/experience";
+import { formatDateToYear } from "@/lib/utils";
 
 // Define the Experience component props
 interface ExperienceProps {
@@ -13,18 +14,18 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
   const isInView = useInView(ref, { once: true, amount: 0.1 });
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if the device is mobile
+  // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
+    
     // Initial check
     checkMobile();
-
+    
     // Add resize listener
     window.addEventListener("resize", checkMobile);
-
+    
     // Cleanup
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
@@ -32,15 +33,11 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
   // Skip animations on mobile or standalone page for better performance
   const shouldAnimate = !isMobile && !isStandalonePage;
 
-  // Use the professional and volunteer experiences directly from the data files
-  const professionalExperiences = workExperience;
-  const volunteerExperiences = volunteerExperience;
-
   return (
-    <section
-      id="experience"
+    <section 
+      id="experience" 
       ref={ref}
-      className={`py-16 ${isStandalonePage ? "" : "min-h-screen"}`}
+      className={`py-16 ${isStandalonePage ? "" : "min-h-screen"} relative overflow-hidden`}
     >
       {!isStandalonePage && (
         <div className="container mx-auto px-4">
@@ -48,75 +45,109 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
             Experience
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-            My professional journey and volunteer work.
+            My professional journey and academic background.
           </p>
         </div>
       )}
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Professional Experience */}
+      <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        {/* Work Experience */}
         <motion.div
-          className="mb-20"
           initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
           animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
           transition={shouldAnimate ? { duration: 0.5 } : undefined}
+          className="mb-16"
         >
           <h3 className="text-2xl font-semibold mb-8 text-gray-800 dark:text-white">
-            Professional Experience
+            Work Experience
           </h3>
           
           <div className="space-y-8">
-            {professionalExperiences.map((exp, index) => (
+            {workExperience.map((exp, index) => (
               <motion.div
                 key={index}
                 initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
                 animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
                 transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
-                className="relative pl-6 border-l border-indigo-200 dark:border-indigo-800"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700"
               >
-                <div className="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-indigo-500 dark:bg-indigo-400" />
-                <h4 className="font-medium text-lg text-gray-800 dark:text-white">{exp.position}</h4>
-                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  <span>{exp.company}</span>
-                  <span>{exp.years}</span>
+                <div className="p-6">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                    <h4 className="text-xl font-bold text-gray-800 dark:text-white">
+                      {exp.position}
+                    </h4>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-0">
+                      {formatDateToYear(exp.years)}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                    {exp.company}
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    {exp.description}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {exp.description}
-                </p>
               </motion.div>
             ))}
           </div>
         </motion.div>
-
+        
+        
         {/* Volunteer Experience */}
         <motion.div
-          className="mb-10"
           initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
           animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
-          transition={shouldAnimate ? { duration: 0.5, delay: 0.2 } : undefined}
+          transition={shouldAnimate ? { duration: 0.5, delay: 0.4 } : undefined}
         >
           <h3 className="text-2xl font-semibold mb-8 text-gray-800 dark:text-white">
             Volunteer Experience
           </h3>
           
           <div className="space-y-8">
-            {volunteerExperiences.map((exp, index) => (
+            {volunteerExperience.map((exp, index) => (
               <motion.div
                 key={index}
                 initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
                 animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }) : undefined}
-                transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 + 0.2 } : undefined}
-                className="relative pl-6 border-l border-purple-200 dark:border-purple-800"
+                transition={shouldAnimate ? { duration: 0.5, delay: 0.4 + index * 0.1 } : undefined}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700"
               >
-                <div className="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-purple-500 dark:bg-purple-400" />
-                <h4 className="font-medium text-lg text-gray-800 dark:text-white">{exp.position}</h4>
-                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  <span>{exp.company}</span>
-                  <span>{exp.years}</span>
+                <div className="p-6">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                    <h4 className="text-xl font-bold text-gray-800 dark:text-white">
+                      {exp.position}
+                    </h4>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-0">
+                      {formatDateToYear(exp.years)}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300 mb-2">
+                    {exp.company}
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    {exp.description}
+                  </p>
+                  
+                  {/* Links if available */}
+                  {exp.links && exp.links.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      {exp.links.map((link, i) => (
+                        <a
+                          key={i}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+                        >
+                          {link.label}
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {exp.description}
-                </p>
               </motion.div>
             ))}
           </div>

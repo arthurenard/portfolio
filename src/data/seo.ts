@@ -65,11 +65,22 @@ export const getMetadata = (): Metadata => {
         { url: "/favicons/favicon.ico" },
         { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
         { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicons/favicon.svg", type: "image/svg+xml" },
       ],
       apple: [
         {
           url: "/favicons/apple-touch-icon.png",
           sizes: "180x180",
+          type: "image/png",
+        },
+        {
+          url: "/favicons/apple-touch-icon-152x152.png",
+          sizes: "152x152",
+          type: "image/png",
+        },
+        {
+          url: "/favicons/apple-touch-icon-120x120.png",
+          sizes: "120x120",
           type: "image/png",
         },
       ],
@@ -84,9 +95,51 @@ export const getMetadata = (): Metadata => {
           sizes: "512x512",
           type: "image/png",
         },
+        {
+          rel: "mask-icon",
+          url: "/favicons/safari-pinned-tab.svg", 
+          color: "#5bbad5"
+        },
+        {
+          rel: "icon",
+          url: "/favicons/firefox-icon-16x16.png",
+          sizes: "16x16",
+        },
+        {
+          rel: "icon",
+          url: "/favicons/firefox-icon-30x30.png",
+          sizes: "30x30",
+        },
+        {
+          rel: "icon",
+          url: "/favicons/firefox-icon-32x32.png",
+          sizes: "32x32",
+        },
+        {
+          rel: "icon",
+          url: "/favicons/firefox-icon-48x48.png",
+          sizes: "48x48",
+        },
+        {
+          rel: "icon",
+          url: "/favicons/firefox-icon-60x60.png",
+          sizes: "60x60",
+        },
+        {
+          rel: "icon",
+          url: "/favicons/firefox-icon-128x128.png",
+          sizes: "128x128",
+        },
       ],
     },
     manifest: "/favicons/site.webmanifest",
+    viewport: "width=device-width, initial-scale=1",
+    themeColor: "#ffffff",
+    appleWebApp: {
+      capable: true,
+      title: siteMetadata.title,
+      statusBarStyle: "default",
+    },
   };
 };
 

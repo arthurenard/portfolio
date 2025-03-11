@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { workExperience } from "@/data/experience";
+import { formatDateToYear } from "@/lib/utils";
 
 export default function ExperienceSnapshot() {
   const ref = useRef<HTMLDivElement>(null);
@@ -101,7 +102,7 @@ export default function ExperienceSnapshot() {
                 </div>
                 <div className="ml-auto">
                   <span className="px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-md font-medium">
-                    {researcherExperience.years}
+                    {formatDateToYear(researcherExperience.years)}
                   </span>
                 </div>
               </div>

@@ -17,7 +17,7 @@ export const projects = [
   },  
   {
     title: "Boolformer",
-    subtitle: "Under review (submission) | Stéphane d'Ascoli*, Arthur Renard*, Emmanuel Abbé, Clément Hongler, Vassilis Papadopoulos, Josh Susskind, Samy Bengio - APPLE, EPFL",
+    subtitle: "Under review - ICML 2025 | Stéphane d'Ascoli*, Arthur Renard*, Emmanuel Abbé, Clément Hongler, Vassilis Papadopoulos, Josh Susskind, Samy Bengio - APPLE, EPFL",
     description:
       "We introduce Boolformer, a Transformer-based model trained to perform end-to-end symbolic regression of Boolean functions. The model can predict compact formulas for complex functions not seen during training, given their full truth table. Even with incomplete or noisy observations, Boolformer is still able to find good approximate expressions. We evaluate it on real-world binary classification datasets, demonstrating its potential as an interpretable alternative to classic machine learning methods. When applied to modeling gene regulatory networks, Boolformer is competitive with state-of-the-art genetic algorithms, with a speedup of several orders of magnitude. We are currently awaiting the results of our submission.",
     tech: ["PyTorch", "Transformers", "Academic Research","Symbolic Regression", "Interpretable ML"],

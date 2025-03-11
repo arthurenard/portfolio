@@ -38,18 +38,18 @@ export default function Navigation() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || pathname !== "/"
+        scrolled || pathname !== "/" || isOpen
           ? "bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm"
           : "bg-transparent"
       }`}
     >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo - always visible on pages, only visible when scrolled on homepage */}
+          {/* Logo - always visible on pages, only visible when scrolled on homepage or mobile menu is open */}
           <Link
             href="/"
             className={`transition-all duration-300 ${
-              scrolled || pathname !== "/" ? "opacity-100 scale-100" : "opacity-0 scale-75"
+              scrolled || pathname !== "/" || isOpen ? "opacity-100 scale-100" : "opacity-0 scale-75"
             }`}
           >
             <div className="w-10 h-10 relative transition-transform">
@@ -116,7 +116,12 @@ export default function Navigation() {
             {/* Menu Toggle Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              className={`transition-colors ${
+                isOpen || scrolled || pathname !== "/"
+                  ? "text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                  : "text-gray-800 dark:text-gray-100 hover:text-indigo-600 dark:hover:text-indigo-400"
+              }`}
+              aria-label="Toggle menu"
             >
               <span className="inline-block transition-transform hover:scale-110">
                 {isOpen ? (
