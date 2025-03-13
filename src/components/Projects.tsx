@@ -1,8 +1,9 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Github, ExternalLink, FileText, Clock } from "lucide-react";
+import { Github, ExternalLink, FileText, Clock, BookOpen } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { projects, projectCategories } from "@/data/projects";
 
 // Define the Project type to match the actual structure
@@ -19,6 +20,7 @@ interface Project {
   category: string;
   iframe?: string;
   comingSoon?: string;
+  page?: string;
 }
 
 // Define the Projects component props
@@ -109,6 +111,15 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                       ))}
                     </div>
                     <div className="flex flex-wrap gap-4 pt-4">
+                      {project.page && (
+                        <Link
+                          href={project.page}
+                          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200"
+                        >
+                          <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                          <span>View Details</span>
+                        </Link>
+                      )}
                       {project.github && (
                         <a
                           href={project.github}

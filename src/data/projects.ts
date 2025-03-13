@@ -23,7 +23,8 @@ export const projects = [
     tech: ["PyTorch", "Transformers", "Academic Research","Symbolic Regression", "Interpretable ML"],
     github: "https://github.com/arthurenard/Boolformer",
     image: "/boolformer.png",
-    category: projectCategories.ACADEMIC
+    category: projectCategories.ACADEMIC,
+    page: "/projects/boolformer"
   },
   {
     title: "Phase Transition Finder",
