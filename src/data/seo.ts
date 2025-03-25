@@ -5,7 +5,7 @@ export const siteMetadata = {
   name: "Arthur Renard",
   description: 
     "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning, large language models, and symbolic regression at EPFL.",
-  url: "https://arthurrenard.com",
+  url: "https://arthurenard.me",
   keywords: [
     "Arthur Renard",
     "AI Researcher",
@@ -29,9 +29,9 @@ export const siteMetadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://arthurrenard.com",
+    url: "https://arthurenard.me",
     title: "Arthur Renard | AI Researcher & Applied Mathematician",
-    description: "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning and large language models at EPFL.",
+    description: "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning and LLMs at EPFL.",
     siteName: "Arthur Renard Portfolio",
     images: [
       {
@@ -42,12 +42,6 @@ export const siteMetadata = {
       }
     ]
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Arthur Renard | AI Researcher & Applied Mathematician",
-    description: "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning and large language models at EPFL.",
-    images: ["/og-image.jpg"]
-  }
 };
 
 export const getMetadata = (): Metadata => {
@@ -58,7 +52,6 @@ export const getMetadata = (): Metadata => {
     authors: siteMetadata.authors,
     creator: siteMetadata.creator,
     openGraph: siteMetadata.openGraph,
-    twitter: siteMetadata.twitter,
     metadataBase: new URL(siteMetadata.url),
     icons: {
       icon: [

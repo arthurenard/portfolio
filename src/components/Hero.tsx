@@ -1,14 +1,15 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
+// import Image from "next/image";
 import { useEffect, useState } from "react";
+import { personalInfo } from "@/data/personal";
 
 export default function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [100, 300], [1, 0]);
   const scale = useTransform(scrollY, [0, 300], [1, 0.8]);
-  const profileScale = useTransform(scrollY, [0, 300], [1, 1.2]);
+  // const profileScale = useTransform(scrollY, [0, 300], [1, 1.2]);
   
   // Additional transforms for parallax elements
   const parallaxY1 = useTransform(scrollY, [0, 500], [0, -50]);
@@ -82,13 +83,12 @@ export default function Hero() {
             className="flex flex-col items-center"
           >
             {/* Profile Image with enhanced styling */}
-            <motion.div 
+            {/* <motion.div 
               style={{ scale: profileScale }} 
               className="mb-8 relative"
               variants={itemVariants}
             >
               <div className="w-40 h-40 md:w-64 md:h-64 relative">
-                {/* Animated glow effect */}
                 <motion.div 
                   animate={{ 
                     scale: [1, 1.05, 1],
@@ -102,7 +102,6 @@ export default function Hero() {
                   className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-400/30 dark:to-purple-400/30 rounded-full blur-xl"
                 />
                 
-                {/* Profile image */}
                 <Image
                   src="/sticker-smile.webp"
                   alt="Arthur Renard"
@@ -112,7 +111,7 @@ export default function Hero() {
                   priority
                 />
               </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Name with enhanced typography */}
             <motion.div
@@ -120,7 +119,7 @@ export default function Hero() {
               className="relative"
             >
               <h1 className="text-5xl md:text-7xl font-bold pb-4 mouse-gradient-text tracking-tight">
-                Arthur Renard
+                {personalInfo.name}
               </h1>
               {/* Subtle underline */}
               <div className="h-1 w-24 md:w-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full mx-auto opacity-70"></div>
@@ -131,25 +130,39 @@ export default function Hero() {
               variants={itemVariants}
               className="text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-300 mt-6 mb-4"
             >
-              Applied Mathematician & AI Researcher
+              {personalInfo.title}
             </motion.h2>
 
             {/* Professional introduction */}
             <motion.p
               variants={itemVariants}
+              className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed"
+            >
+              {personalInfo.description}
+            </motion.p>
+            <motion.p
+              variants={itemVariants}
               className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mb-8 leading-relaxed"
             >
-              Exploring the frontiers of AI with expertise in mathematical reasoning and large language models. 
-              Currently researching at <span className="text-indigo-600 dark:text-indigo-400 font-medium">EPFL</span> under Prof. C. Hongler.
+              {personalInfo.currentPosition}{" "}
+              <span className="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
+                {personalInfo.institution}
+              </span>{" "}
+              {personalInfo.professor}{" "}
+              {personalInfo.education}{" "}
+              <span className="text-purple-600 dark:text-purple-400 font-medium hover:text-purple-700 dark:hover:text-purple-300 transition-colors">
+                {personalInfo.university}
+              </span>{" "}
+              {personalInfo.degree}
             </motion.p>
 
-            {/* CTA buttons - moved back inside the scroll-affected container */}
+            {/* CTA buttons */}
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full max-w-md mx-auto"
             >
               <motion.a
-                href="/projects"
+                href={personalInfo.links.projects}
                 className="w-full sm:w-auto sm:flex-1 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white rounded-lg shadow-lg shadow-indigo-500/20 dark:shadow-indigo-700/20 hover:shadow-xl hover:shadow-indigo-500/30 dark:hover:shadow-indigo-700/30 transition-all duration-300 font-medium text-center"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -157,7 +170,7 @@ export default function Hero() {
                 View Projects
               </motion.a>
               <motion.a
-                href="/contact"
+                href={personalInfo.links.contact}
                 className="w-full sm:w-auto sm:flex-1 px-8 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-medium text-center"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}

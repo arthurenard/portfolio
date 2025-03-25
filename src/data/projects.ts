@@ -24,7 +24,7 @@ export const projects = [
     github: "https://github.com/arthurenard/Boolformer",
     image: "/boolformer.png",
     category: projectCategories.ACADEMIC,
-    page: "/projects/boolformer"
+    underReview: "Under review at ICML 2025"
   },
   {
     title: "Phase Transition Finder",

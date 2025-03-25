@@ -1,13 +1,36 @@
+"use client";
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Projects from "@/components/Projects";
 import MouseGradient from "@/components/MouseGradient";
 import ScrollRestoration from "@/components/ScrollRestoration";
-import { getPageMetadata } from "@/data/seo";
 import { getResearchProjectSchema } from "@/data/structuredData";
 import { projects } from "@/data/projects";
 import Script from "next/script";
-import type { Metadata } from "next";
+import { Suspense } from 'react';
 
-export const metadata: Metadata = getPageMetadata("projects");
+function ProjectsContent() {
+  const searchParams = useSearchParams();
+  
+  useEffect(() => {
+    // Check if there's a hash in the URL
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+      // Find the element with this ID
+      const element = document.getElementById(hash);
+      if (element) {
+        // Scroll to the element
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, [searchParams]);
+
+  return (
+    <Projects isStandalonePage={true} />
+  );
+}
 
 export default function ProjectsPage() {
   // Get structured data for academic projects
@@ -65,7 +88,9 @@ export default function ProjectsPage() {
         <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
           Detailed showcase of my work, including technical details and outcomes.
         </p>
-        <Projects isStandalonePage={true} />
+        <Suspense fallback={<div>Loading projects...</div>}>
+          <ProjectsContent />
+        </Suspense>
       </div>
     </main>
   );

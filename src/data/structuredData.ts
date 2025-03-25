@@ -4,7 +4,7 @@ export const getPersonSchema = () => {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Arthur Renard",
-    url: "https://arthurrenard.com",
+    url: "https://arthurenard.me",
     jobTitle: "AI Researcher & Applied Mathematician",
     worksFor: {
       "@type": "Organization",
@@ -43,7 +43,7 @@ export const getWebsiteSchema = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Arthur Renard Portfolio",
-    url: "https://arthurrenard.com",
+    url: "https://arthurenard.me",
     description: "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning and large language models at EPFL.",
     author: {
       "@type": "Person",
@@ -63,12 +63,12 @@ export const getResearchProjectSchema = (project: {
     "@type": "ResearchProject",
     name: project.title,
     description: project.description,
-    ...(project.image && { image: `https://arthurrenard.com${project.image}` }),
+    ...(project.image && { image: `https://arthurenard.me${project.image}` }),
     ...(project.url && { url: project.url }),
     author: {
       "@type": "Person",
       name: "Arthur Renard",
-      url: "https://arthurrenard.com"
+      url: "https://arthurenard.me"
     }
   };
 }; 

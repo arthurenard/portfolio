@@ -76,9 +76,11 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
                     <h4 className="text-xl font-bold text-gray-800 dark:text-white">
                       {exp.position}
                     </h4>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-0">
-                      {formatDateToYear(exp.years)}
-                    </span>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-0 flex items-center">
+                      <span>{formatDateToYear(exp.years)}</span>
+                      {exp.location && <span className="mx-2">•</span>}
+                      {exp.location && <span>{exp.location}</span>}
+                    </div>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 mb-2">
                     {exp.company}
@@ -117,9 +119,11 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
                     <h4 className="text-xl font-bold text-gray-800 dark:text-white">
                       {exp.position}
                     </h4>
-                    <span className="text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-0">
-                      {formatDateToYear(exp.years)}
-                    </span>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-0 flex items-center">
+                      <span>{formatDateToYear(exp.years)}</span>
+                      {exp.location && <span className="mx-2">•</span>}
+                      {exp.location && <span>{exp.location}</span>}
+                    </div>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 mb-2">
                     {exp.company}

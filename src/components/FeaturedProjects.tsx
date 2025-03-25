@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Github, ExternalLink, FileText, Clock } from "lucide-react";
+import { ArrowRight, Github, ExternalLink, FileText, Clock, ScrollText } from "lucide-react";
 import { projects } from "@/data/projects";
 
 // Define the Project type to match the actual structure
@@ -18,6 +18,7 @@ interface Project {
   arxiv?: string;
   image?: string;
   comingSoon?: string;
+  underReview?: string;
 }
 
 export default function FeaturedProjects() {
@@ -85,7 +86,7 @@ export default function FeaturedProjects() {
             Featured Research Projects
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Exploring AI, mathematical reasoning, and symbolic regression at EPFL and ETH Zürich
+            Exploring AI, mathematical reasoning, and symbolic regression at <span className="text-indigo-600 dark:text-indigo-400 font-medium">EPFL</span> and <span className="text-purple-600 dark:text-purple-400 font-medium">ETH Zürich</span>
           </p>
         </motion.div>
 
@@ -197,6 +198,12 @@ export default function FeaturedProjects() {
                     <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                       <Clock className="w-4 h-4" />
                       <span>{project.comingSoon}</span>
+                    </div>
+                  )}
+                  {project.underReview && (
+                    <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                      <ScrollText className="w-4 h-4" />
+                      <span>{project.underReview}</span>
                     </div>
                   )}
                 </div>

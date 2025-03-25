@@ -83,10 +83,10 @@ export default function Navigation() {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center justify-center"
               aria-label="Toggle theme"
             >
-              <span className="inline-block transition-transform hover:scale-110">
+              <span className="inline-flex items-center justify-center transition-transform hover:scale-110">
                 {theme === "dark" ? (
                   <Sun className="w-5 h-5 text-gray-300 hover:text-indigo-400" />
                 ) : (
@@ -101,10 +101,10 @@ export default function Navigation() {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center justify-center"
               aria-label="Toggle theme"
             >
-              <span className="inline-block transition-transform hover:scale-110">
+              <span className="inline-flex items-center justify-center transition-transform hover:scale-110">
                 {theme === "dark" ? (
                   <Sun className="w-5 h-5 text-gray-300 hover:text-indigo-400" />
                 ) : (

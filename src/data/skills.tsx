@@ -1,4 +1,4 @@
-import { Code, Brain, Languages, GitBranch, Wrench } from "lucide-react";
+import { Code, Brain, Languages, GitBranch, Lightbulb } from "lucide-react";
 import { ReactNode } from "react";
 
 interface SkillGroup {
@@ -11,12 +11,22 @@ export const skills: SkillGroup[] = [
   {
     category: "Programming",
     icon: <Code className="w-5 h-5" />,
-    items: ["Python/PyTorch", "C++", "Rust", "Next.js/React Native"],
+    items: [
+      "Python/PyTorch", 
+      "C++", 
+      "Rust", 
+      "Next.js/React Native"
+    ],
   },
   {
     category: "Machine Learning",
     icon: <Brain className="w-5 h-5" />,
-    items: ["Deep Learning", "Transformers", "Symbolic Regression", "LLMs"],
+    items: [
+      "Deep Learning", 
+      "Transformers", 
+      "Symbolic Regression", 
+      "LLMs and their applications"
+    ],
   },
   {
     category: "Languages",
@@ -29,13 +39,13 @@ export const skills: SkillGroup[] = [
     ],
   },
   {
-    category: "Frameworks & Tools",
-    icon: <Wrench className="w-5 h-5" />,
+    category: "Soft Skills",
+    icon: <Lightbulb className="w-5 h-5" />,
     items: [
-      "HuggingFace",
-      "GitHub",
-      "Docker",
-      "Weights & Biases",
+      "Analytical Thinking",
+      "Complex Problem-Solving",
+      "Autonomous",
+      "Team Player",
     ],
   },
   {
@@ -44,7 +54,7 @@ export const skills: SkillGroup[] = [
     items: [
       "Mathematical Reasoning",
       "Discrete Optimization",
-      "Complex Systems",
+      "Generative AI",
       "Artificial Life",
     ],
   },

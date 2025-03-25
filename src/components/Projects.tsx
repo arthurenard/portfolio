@@ -21,6 +21,7 @@ interface Project {
   iframe?: string;
   comingSoon?: string;
   page?: string;
+  underReview?: string;
 }
 
 // Define the Projects component props
@@ -81,6 +82,7 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
               .map((project, index) => (
                 <motion.div
                   key={project.title}
+                  id={project.title.toLowerCase().replace(/\s+/g, '-')}
                   initial={shouldAnimate ? { opacity: 0, y: 50 } : undefined}
                   animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }) : undefined}
                   transition={shouldAnimate ? { duration: 0.6, delay: index * 0.1 } : undefined}
@@ -157,6 +159,12 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                         <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-gray-200">
                           <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                           <span>{project.comingSoon}</span>
+                        </div>
+                      )}
+                      {project.underReview && (
+                        <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-gray-200">
+                          <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                          <span>{project.underReview}</span>
                         </div>
                       )}
                     </div>
