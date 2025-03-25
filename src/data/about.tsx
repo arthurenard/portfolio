@@ -21,7 +21,7 @@ export const aboutData: AboutData = {
   description: "Learn about my background, education, and skills.",
   paragraphs: [
     "My academic journey has taken me through EPFL for my Bachelor's in Mathematics, ETH Zürich for my Master's in Applied Mathematics, and included an exchange year at KTH Royal Institute of Technology in Stockholm.",
-    "I'm passionate about cutting-edge research and contributing to transformative advancements in AI. My work focuses on mathematical reasoning with AI, where I've developed novel approaches combining symbolic methods with deep learning. I've also ventured into artificial life research, contributing to the development of algorithms to discover complex emergent behaviors in high-dimensional systems.",
+    "I'm passionate about cutting-edge research and contributing to transformative advancements in AI. My work focuses on mathematical reasoning with deep learning, where I've developed novel approaches combining symbolic methods with LLMs. I've also ventured into artificial life research, contributing to the development of algorithms to discover complex emergent behaviors in high-dimensional systems.",
     "Beyond research, I've been actively involved in student organizations, including Festival Balélec, Europe's largest student festival. I've also worked as a freelance web developer, creating professional websites for various businesses and organizations, which has given me valuable experience in translating complex requirements into user-friendly solutions."
   ],
   profileImage: {
