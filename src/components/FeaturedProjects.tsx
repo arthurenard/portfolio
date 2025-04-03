@@ -83,10 +83,10 @@ export default function FeaturedProjects() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 mouse-gradient-text inline-block">
-            Featured Research Projects
+            Research Projects
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Exploring AI, mathematical reasoning, and symbolic regression at <span className="text-indigo-600 dark:text-indigo-400 font-medium">EPFL</span> and <span className="text-purple-600 dark:text-purple-400 font-medium">ETH Zürich</span>
+            Exploring AI, mathematical reasoning, and symbolic regression at <span className="text-indigo-600 dark:text-indigo-400 font-medium">EPFL</span>
           </p>
         </motion.div>
 

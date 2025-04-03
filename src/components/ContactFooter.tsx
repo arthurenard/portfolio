@@ -44,11 +44,16 @@ export default function ContactFooter() {
           className="flex flex-wrap justify-center gap-6 mb-10"
         >
           {contactInfo.map((item, index) => {
-            // Check if this is an email item based on the href starting with 'mailto:'
-            const isEmail = item.href?.startsWith('mailto:');
-            const email = isEmail ? item.href.replace('mailto:', '') : '';
-            
+            // More explicit check for email href
+            let isEmail = false;
+            let email = '';
+            if (typeof item.href === 'string' && item.href.startsWith('mailto:')) {
+              isEmail = true;
+              email = item.href.substring(7); // Remove 'mailto:'
+            }
+
             if (isEmail) {
+              // We know email is a non-empty string here
               return (
                 <button
                   key={index}
