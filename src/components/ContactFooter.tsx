@@ -1,13 +1,24 @@
 "use client";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Copy, Check } from "lucide-react";
 import { contactInfo } from "@/data/contact";
 
 export default function ContactFooter() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+
+  const copyToClipboard = (email: string) => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(email);
+    
+    // Reset the copied state after 2 seconds
+    setTimeout(() => {
+      setCopiedEmail(null);
+    }, 2000);
+  };
 
   return (
     <section ref={ref} className="py-16 px-4 border-t border-gray-200 dark:border-gray-800">
@@ -32,8 +43,45 @@ export default function ContactFooter() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-6 mb-10"
         >
-          {contactInfo.map((item, index) => (
-            item.href ? (
+          {contactInfo.map((item, index) => {
+            // Check if this is an email item based on the href starting with 'mailto:'
+            const isEmail = item.href?.startsWith('mailto:');
+            const email = isEmail ? item.href.replace('mailto:', '') : '';
+            
+            if (isEmail) {
+              return (
+                <button
+                  key={index}
+                  onClick={() => copyToClipboard(email)}
+                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:shadow-lg transition-all duration-300 text-gray-800 dark:text-gray-200 relative"
+                >
+                  <span className="text-indigo-600 dark:text-indigo-400">
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                  <span className="ml-1 text-gray-500">
+                    {copiedEmail === email ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  </span>
+                  
+                  {/* Copied notification */}
+                  <AnimatePresence>
+                    {copiedEmail === email && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: -30 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-sm px-3 py-1 rounded-md"
+                      >
+                        Copied!
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              );
+            }
+            
+            // Handle non-email items normally
+            return item.href ? (
               <a
                 key={index}
                 href={item.href}
@@ -56,8 +104,8 @@ export default function ContactFooter() {
                 </span>
                 <span>{item.label}</span>
               </div>
-            )
-          ))}
+            );
+          })}
         </motion.div>
 
         <motion.div
