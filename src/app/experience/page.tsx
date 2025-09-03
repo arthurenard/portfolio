@@ -39,7 +39,7 @@ export default function ExperiencePage() {
           Experience
         </h1>
         <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-          Expanded version of my professional experience, including research work at EPFL, teaching experience, and industry projects.
+          Expanded version of my professional experience, including work at Xent Labs, research at EPFL, teaching experience, and industry projects.
         </p>
         <Experience isStandalonePage={true} />
       </div>

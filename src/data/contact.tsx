@@ -48,6 +48,6 @@ export const certifications = [
 export const personalInfo = {
   summary: "Innovative applied mathematician and researcher exploring the frontiers of AI, with expertise in mathematical reasoning and large language models. An avid learner, approachable and excited by impactful projects in academia or industry.",
   // hobbies: "Fencing (6 years, Belgian national awards), Swimming, Reading, Guitar (Rock 'n Roll).",
-  currentRole: "Deep Learning Researcher @EPFL | Cracking Math with AI",
-  availability: "Currently open to research collaborations, consulting opportunities, and interesting projects in AI and mathematical reasoning."
+  currentRole: "Deep Learning Researcher @Xent Labs | Cracking Math with AI",
+  availability: ""
 };

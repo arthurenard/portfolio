@@ -1,6 +1,6 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { contactInfo, personalInfo } from "@/data/contact";
+import { contactInfo } from "@/data/contact";
 import { useRef, useState, useEffect } from "react";
 import ContactForm from "./ContactForm";
 
@@ -89,14 +89,14 @@ export default function Contact({ isStandalonePage = false }: ContactProps) {
                   ))}
                 </div>
                 
-                <div className="mt-10">
+                {/* <div className="mt-10">
                   <h4 className="font-medium text-gray-800 dark:text-white mb-4">
                     Availability
                   </h4>
                   <p className="text-gray-600 dark:text-gray-300">
                     {personalInfo.availability}
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </motion.div>

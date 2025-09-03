@@ -4,7 +4,7 @@ export const siteMetadata = {
   title: "Arthur Renard | AI Researcher & Applied Mathematician",
   name: "Arthur Renard",
   description: 
-    "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning, large language models, and symbolic regression at EPFL.",
+    "Arthur Renard's portfolio showcasing his work as an AI researcher at Xent Labs and applied mathematician with expertise in large language model reasoning.",
   url: "https://arthurenard.me",
   keywords: [
     "Arthur Renard",
@@ -13,7 +13,8 @@ export const siteMetadata = {
     "Mathematical Reasoning",
     "Large Language Models",
     "Symbolic Regression",
-    "EPFL",
+    "Xent Labs",
+    "Xent Games",
     "ETH Zürich",
     "Deep Learning",
     "Functional Equations",
@@ -31,7 +32,8 @@ export const siteMetadata = {
     locale: "en_US",
     url: "https://arthurenard.me",
     title: "Arthur Renard | AI Researcher & Applied Mathematician",
-    description: "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning and LLMs at EPFL.",
+    description: 
+    "Arthur Renard's portfolio showcasing his work as an AI researcher at Xent Labs and applied mathematician with expertise in large language model reasoning.",
     siteName: "Arthur Renard Portfolio",
     images: [
       {
@@ -155,7 +157,7 @@ export const getPageMetadata = (page: string): Metadata => {
     },
     experience: {
       title: "Experience | Arthur Renard",
-      description: "Arthur Renard's professional experience in AI research and applied mathematics at EPFL and ETH Zürich.",
+      description: "Arthur Renard's professional experience in AI research and applied mathematics at Xentlabs, EPFL, and ETH Zürich.",
     },
     contact: {
       title: "Contact | Arthur Renard",

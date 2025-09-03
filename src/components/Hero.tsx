@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 // import Image from "next/image";
 import { useEffect, useState } from "react";
 import { personalInfo } from "@/data/personal";
-
+import Link from "next/link";
 export default function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 200]);
@@ -146,7 +146,7 @@ export default function Hero() {
             >
               {personalInfo.currentPosition}{" "}
               <span className="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
-                {personalInfo.institution}
+                <Link href={personalInfo.institutionLink} target="_blank" rel="noopener noreferrer">{personalInfo.institution}</Link>
               </span>{" "}
               {personalInfo.professor}{" "}
               {personalInfo.education}{" "}

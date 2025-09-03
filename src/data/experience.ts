@@ -32,10 +32,18 @@ export const education = [
 
 export const workExperience = [
   {
+    position: "Deep Learning Researcher",
+    company: "Xent Labs",
+    location: "Lausanne, Switzerland & New York, USA",
+    years: "2025 - Now",
+    description:
+      "Working on Xent Games — an LLM-native game space where AI agents play in LLM-defined environments with varying difficulty levels. This platform aims to develop advanced AI capabilities including reasoning, cooperation, and critical thinking.",
+  },
+  {
     position: "Researcher",
     company: "EPFL, Chair of Statistical Field Theory, Prof. C. Hongler",
     location: "Lausanne, Switzerland",
-    years: "2023 - Now",
+    years: "2023 - 2025",
     description:
       "Exploring the application of artificial intelligence in mathematical reasoning while investigating inference techniques and the security of large language models.",
   },

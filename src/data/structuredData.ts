@@ -8,8 +8,8 @@ export const getPersonSchema = () => {
     jobTitle: "AI Researcher & Applied Mathematician",
     worksFor: {
       "@type": "Organization",
-      name: "EPFL",
-      url: "https://www.epfl.ch"
+      name: "Xent Labs",
+      url: "https://www.xentlabs.ai/"
     },
     alumniOf: [
       {
@@ -44,7 +44,8 @@ export const getWebsiteSchema = () => {
     "@type": "WebSite",
     name: "Arthur Renard Portfolio",
     url: "https://arthurenard.me",
-    description: "Portfolio of Arthur Renard, an AI researcher and applied mathematician specializing in mathematical reasoning and large language models at EPFL.",
+    description: 
+    "Arthur Renard's portfolio showcasing his work as an AI researcher at Xent Labs and applied mathematician with expertise in large language model reasoning.",
     author: {
       "@type": "Person",
       name: "Arthur Renard"
