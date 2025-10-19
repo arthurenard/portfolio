@@ -1,8 +1,9 @@
 "use client";
 import { motion, useInView } from "framer-motion";
 import { contactInfo } from "@/data/contact";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import ContactForm from "./ContactForm";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 // Define the Contact component props
 interface ContactProps {
@@ -12,23 +13,7 @@ interface ContactProps {
 export default function Contact({ isStandalonePage = false }: ContactProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if device is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Skip animations on mobile or standalone page for better performance
   const shouldAnimate = !isMobile && !isStandalonePage;

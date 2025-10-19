@@ -1,15 +1,16 @@
 // Personal information for the hero section
 export const personalInfo = {
   name: "Arthur Renard",
-  title: "Applied Mathematician & AI Researcher",
-  description: "Exploring the frontiers of AI in reasoning.",
-  currentPosition: "Currently working at",
-  institution: "Xent Labs",
-  institutionLink: "https://www.xentlabs.ai/",
-  professor: "as a Deep Learning Researcher.",
-  education: "Graduate from",
-  university: "ETH Zürich",
-  degree: "with a Master's in Applied Mathematics.",
+  titleLine1: {
+    text: "Head of R&D at ",
+    linkText: "Xent Labs",
+    linkUrl: "https://www.xentlabs.ai/"
+  },
+  titleLine2: {
+    text: "Applied Mathematician from ",
+    linkText: "ETH Zürich",
+    linkUrl: "https://ethz.ch/en.html"
+  },
   links: {
     projects: "/projects",
     contact: "/contact"

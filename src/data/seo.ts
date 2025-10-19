@@ -1,16 +1,17 @@
 import { Metadata } from "next";
 
 export const siteMetadata = {
-  title: "Arthur Renard | AI Researcher & Applied Mathematician",
+  title: "Arthur Renard | Head of Research & Development at Xent Labs",
   name: "Arthur Renard",
-  description: 
-    "Arthur Renard's portfolio showcasing his work as an AI researcher at Xent Labs and applied mathematician with expertise in large language model reasoning.",
+  description:
+    "Head of R&D at Xent Labs. Applied mathematician building practical AI for reasoning.",
   url: "https://arthurenard.me",
   keywords: [
     "Arthur Renard",
-    "AI Researcher",
-    "Applied Mathematician",
-    "Mathematical Reasoning",
+    "Head of R&D",
+    "AI Research",
+    "Applied Mathematics",
+    "Reasoning",
     "Large Language Models",
     "Symbolic Regression",
     "Xent Labs",
@@ -31,18 +32,18 @@ export const siteMetadata = {
     type: "website",
     locale: "en_US",
     url: "https://arthurenard.me",
-    title: "Arthur Renard | AI Researcher & Applied Mathematician",
-    description: 
-    "Arthur Renard's portfolio showcasing his work as an AI researcher at Xent Labs and applied mathematician with expertise in large language model reasoning.",
+    title: "Arthur Renard | Head of Research & Development at Xent Labs",
+    description:
+      "Head of R&D at Xent Labs. Applied mathematician building practical AI for reasoning.",
     siteName: "Arthur Renard Portfolio",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/profile.jpg",
         width: 1200,
         height: 630,
-        alt: "Arthur Renard - AI Researcher & Applied Mathematician"
-      }
-    ]
+        alt: "Arthur Renard",
+      },
+    ],
   },
 };
 
@@ -59,77 +60,13 @@ export const getMetadata = (): Metadata => {
       icon: [
         { url: "/favicons/favicon.ico" },
         { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicons/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" }
       ],
       apple: [
-        {
-          url: "/favicons/apple-touch-icon.png",
-          sizes: "180x180",
-          type: "image/png",
-        },
-        {
-          url: "/favicons/apple-touch-icon-152x152.png",
-          sizes: "152x152",
-          type: "image/png",
-        },
-        {
-          url: "/favicons/apple-touch-icon-120x120.png",
-          sizes: "120x120",
-          type: "image/png",
-        },
-      ],
-      other: [
-        {
-          url: "/favicons/android-chrome-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          url: "/favicons/android-chrome-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-        },
-        {
-          rel: "mask-icon",
-          url: "/favicons/safari-pinned-tab.svg", 
-          color: "#5bbad5"
-        },
-        {
-          rel: "icon",
-          url: "/favicons/firefox-icon-16x16.png",
-          sizes: "16x16",
-        },
-        {
-          rel: "icon",
-          url: "/favicons/firefox-icon-30x30.png",
-          sizes: "30x30",
-        },
-        {
-          rel: "icon",
-          url: "/favicons/firefox-icon-32x32.png",
-          sizes: "32x32",
-        },
-        {
-          rel: "icon",
-          url: "/favicons/firefox-icon-48x48.png",
-          sizes: "48x48",
-        },
-        {
-          rel: "icon",
-          url: "/favicons/firefox-icon-60x60.png",
-          sizes: "60x60",
-        },
-        {
-          rel: "icon",
-          url: "/favicons/firefox-icon-128x128.png",
-          sizes: "128x128",
-        },
-      ],
+        { url: "/favicons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
+      ]
     },
     manifest: "/favicons/site.webmanifest",
-    viewport: "width=device-width, initial-scale=1",
-    themeColor: "#ffffff",
     appleWebApp: {
       capable: true,
       title: siteMetadata.title,
@@ -141,7 +78,7 @@ export const getMetadata = (): Metadata => {
 // Page-specific metadata
 export const getPageMetadata = (page: string): Metadata => {
   const baseMetadata = getMetadata();
-  
+
   const pageMetadata: Record<string, Metadata> = {
     home: {
       title: siteMetadata.title,
@@ -149,22 +86,25 @@ export const getPageMetadata = (page: string): Metadata => {
     },
     about: {
       title: "About | Arthur Renard",
-      description: "Learn about Arthur Renard's background, education, and skills in AI research and applied mathematics.",
+      description:
+        "Brief background, education, and core skills in applied mathematics and AI.",
     },
     projects: {
       title: "Projects | Arthur Renard",
-      description: "Explore Arthur Renard's research projects in AI, mathematical reasoning, and symbolic regression.",
+      description: "Selected research and engineering projects in AI and mathematics.",
     },
     experience: {
       title: "Experience | Arthur Renard",
-      description: "Arthur Renard's professional experience in AI research and applied mathematics at Xentlabs, EPFL, and ETH Zürich.",
+      description:
+        "Professional experience leading R&D at Xent Labs and academic research.",
     },
     contact: {
       title: "Contact | Arthur Renard",
-      description: "Get in touch with Arthur Renard for research collaborations, consulting opportunities, or interesting projects in AI.",
+      description:
+        "Get in touch for collaborations, consulting, or high-impact projects.",
     },
   };
-  
+
   return {
     ...baseMetadata,
     ...pageMetadata[page],

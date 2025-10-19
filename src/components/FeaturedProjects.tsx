@@ -1,46 +1,18 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Github, ExternalLink, FileText, Clock, ScrollText } from "lucide-react";
-import { projects } from "@/data/projects";
+import { projects, type Project } from "@/data/projects";
+import { useIsMobile } from "@/lib/useIsMobile";
 
-// Define the Project type to match the actual structure
-interface Project {
-  title: string;
-  subtitle?: string;
-  description: string;
-  tech: string[];
-  github?: string;
-  demo?: string;
-  paper?: string;
-  arxiv?: string;
-  image?: string;
-  comingSoon?: string;
-  underReview?: string;
-}
+// Project type imported from data
 
 export default function FeaturedProjects() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if device is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Get only the first 2 projects for the featured section
   const featuredProjects = projects.slice(0, 2) as Project[];
@@ -70,8 +42,8 @@ export default function FeaturedProjects() {
       {/* Background decorative elements - only on desktop */}
       {!isMobile && (
         <>
-          <div className="absolute top-40 -right-20 w-80 h-80 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 blur-3xl" />
-          <div className="absolute bottom-20 -left-20 w-80 h-80 rounded-full bg-purple-500/5 dark:bg-purple-500/10 blur-3xl" />
+          <div aria-hidden className="pointer-events-none -z-10 absolute top-40 -right-20 w-80 h-80 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 blur-3xl" />
+          <div aria-hidden className="pointer-events-none -z-10 absolute bottom-20 -left-20 w-80 h-80 rounded-full bg-purple-500/5 dark:bg-purple-500/10 blur-3xl" />
         </>
       )}
 
@@ -153,7 +125,7 @@ export default function FeaturedProjects() {
                 </p>
 
                 <Link
-                  href="/projects"
+                  href={`/projects#${project.title.toLowerCase().replace(/\s+/g, "-")}`}
                   className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors group mt-2 mb-4 w-fit"
                 >
                   <span>Learn More</span>

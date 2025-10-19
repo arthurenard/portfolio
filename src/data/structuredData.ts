@@ -5,7 +5,7 @@ export const getPersonSchema = () => {
     "@type": "Person",
     name: "Arthur Renard",
     url: "https://arthurenard.me",
-    jobTitle: "AI Researcher & Applied Mathematician",
+    jobTitle: "Head of Research & Development",
     worksFor: {
       "@type": "Organization",
       name: "Xent Labs",

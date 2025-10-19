@@ -1,27 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTheme } from "@/providers/ThemeProvider";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 export default function MouseGradient() {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
   const { theme } = useTheme();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // Check if device is mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Initial check
-    checkMobile();
-
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Skip mouse tracking on mobile devices

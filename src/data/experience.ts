@@ -32,12 +32,12 @@ export const education = [
 
 export const workExperience = [
   {
-    position: "Deep Learning Researcher",
+    position: "Head of Research & Development",
     company: "Xent Labs",
     location: "Lausanne, Switzerland & New York, USA",
     years: "2025 - Now",
     description:
-      "Working on Xent Games — an LLM-native game space where AI agents play in LLM-defined environments with varying difficulty levels. This platform aims to develop advanced AI capabilities including reasoning, cooperation, and critical thinking.",
+      "Leading R&D at Xent Labs. We build Xent Games — an LLM-native game space to train and evaluate reasoning, cooperation, and planning.",
   },
   {
     position: "Researcher",

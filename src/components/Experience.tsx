@@ -1,8 +1,9 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { workExperience, volunteerExperience } from "@/data/experience";
 import { formatDateToYear } from "@/lib/utils";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 // Define the Experience component props
 interface ExperienceProps {
@@ -12,23 +13,7 @@ interface ExperienceProps {
 export default function Experience({ isStandalonePage = false }: ExperienceProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if device is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Skip animations on mobile or standalone page for better performance
   const shouldAnimate = !isMobile && !isStandalonePage;

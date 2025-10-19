@@ -46,8 +46,8 @@ export const certifications = [
 ];
 
 export const personalInfo = {
-  summary: "Innovative applied mathematician and researcher exploring the frontiers of AI, with expertise in mathematical reasoning and large language models. An avid learner, approachable and excited by impactful projects in academia or industry.",
+  summary: "Head of R&D at Xent Labs. Applied mathematician building practical AI for reasoning.",
   // hobbies: "Fencing (6 years, Belgian national awards), Swimming, Reading, Guitar (Rock 'n Roll).",
-  currentRole: "Deep Learning Researcher @Xent Labs | Cracking Math with AI",
+  currentRole: "Head of R&D @Xent Labs | AI for reasoning",
   availability: ""
 };

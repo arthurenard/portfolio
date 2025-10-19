@@ -1,9 +1,10 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 // import Image from "next/image";
-import { useEffect, useState } from "react";
+ 
 import { personalInfo } from "@/data/personal";
 import Link from "next/link";
+import { useIsMobile } from "@/lib/useIsMobile";
 export default function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 200]);
@@ -15,23 +16,7 @@ export default function Hero() {
   const parallaxY1 = useTransform(scrollY, [0, 500], [0, -50]);
   const parallaxY2 = useTransform(scrollY, [0, 500], [0, -30]);
   
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if device is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Animation variants - speed up animations
   const containerVariants = {
@@ -126,35 +111,33 @@ export default function Hero() {
             </motion.div>
 
             {/* Professional title with enhanced styling */}
-            <motion.h2
+            <motion.div
               variants={itemVariants}
-              className="text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-300 mt-6 mb-4"
+              className="text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-300 mt-6 mb-8 max-w-2xl leading-relaxed"
             >
-              {personalInfo.title}
-            </motion.h2>
-
-            {/* Professional introduction */}
-            <motion.p
-              variants={itemVariants}
-              className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed"
-            >
-              {personalInfo.description}
-            </motion.p>
-            <motion.p
-              variants={itemVariants}
-              className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mb-8 leading-relaxed"
-            >
-              {personalInfo.currentPosition}{" "}
-              <span className="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
-                <Link href={personalInfo.institutionLink} target="_blank" rel="noopener noreferrer">{personalInfo.institution}</Link>
-              </span>{" "}
-              {personalInfo.professor}{" "}
-              {personalInfo.education}{" "}
-              <span className="text-purple-600 dark:text-purple-400 font-medium hover:text-purple-700 dark:hover:text-purple-300 transition-colors">
-                {personalInfo.university}
-              </span>{" "}
-              {personalInfo.degree}
-            </motion.p>
+              <div className="mb-2">
+                {personalInfo.titleLine1.text}
+                <Link 
+                  href={personalInfo.titleLine1.linkUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+                >
+                  {personalInfo.titleLine1.linkText}
+                </Link>
+              </div>
+              <div>
+                {personalInfo.titleLine2.text}
+                <Link 
+                  href={personalInfo.titleLine2.linkUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+                >
+                  {personalInfo.titleLine2.linkText}
+                </Link>
+              </div>
+            </motion.div>
 
             {/* CTA buttons */}
             <motion.div

@@ -1,28 +1,13 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { Github, ExternalLink, FileText, Clock, BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { projects, projectCategories } from "@/data/projects";
+import { projects, projectCategories, type Project } from "@/data/projects";
+import { useIsMobile } from "@/lib/useIsMobile";
 
-// Define the Project type to match the actual structure
-interface Project {
-  title: string;
-  subtitle?: string;
-  description: string;
-  tech: string[];
-  github?: string;
-  demo?: string;
-  paper?: string;
-  arxiv?: string;
-  image?: string;
-  category: string;
-  iframe?: string;
-  comingSoon?: string;
-  page?: string;
-  underReview?: string;
-}
+// Project type imported from data
 
 // Define the Projects component props
 interface ProjectsProps {
@@ -32,23 +17,7 @@ interface ProjectsProps {
 export default function Projects({ isStandalonePage = false }: ProjectsProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if the device is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Initial check
-    checkMobile();
-
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Skip animations on mobile or standalone page for better performance
   const shouldAnimate = !isMobile && !isStandalonePage;
@@ -86,7 +55,7 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                   initial={shouldAnimate ? { opacity: 0, y: 50 } : undefined}
                   animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }) : undefined}
                   transition={shouldAnimate ? { duration: 0.6, delay: index * 0.1 } : undefined}
-                  className={`flex flex-col ${
+                  className={`scroll-mt-28 flex flex-col ${
                     index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   } gap-8 md:gap-12`}
                 >
