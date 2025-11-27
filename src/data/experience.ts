@@ -38,6 +38,9 @@ export const workExperience = [
     years: "2025 - Now",
     description:
       "Leading R&D at Xent Labs. We build Xent Games — an LLM-native game space to train and evaluate reasoning, cooperation, and planning.",
+    links: [
+      { label: "Website", url: "https://xentlabs.ai" }
+    ]
   },
   {
     position: "Researcher",
