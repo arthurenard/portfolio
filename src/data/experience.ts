@@ -55,14 +55,14 @@ export const workExperience = [
     description:
       "Supported students in regular and advanced courses under renowned professors including Prof. François Genoud, Prof. Fabio Nobile, Prof. Friedrich Eisenbrand, Prof. Sacha Friedli and Prof. Anna Lachowska.",
   },
-  {
-    position: "Web Developer",
-    company: "Junior Entreprise EPFL",
-    location: "Lausanne, Switzerland",
-    years: "2021 - 2022",
-    description:
-      "Designed and developed a website for a non-profit organization.",
-  },
+  // {
+  //   position: "Web Developer",
+  //   company: "Junior Entreprise EPFL",
+  //   location: "Lausanne, Switzerland",
+  //   years: "2021 - 2022",
+  //   description:
+  //     "Designed and developed a website for a non-profit organization.",
+  // },
 ];
 
 export const volunteerExperience = [
@@ -87,28 +87,28 @@ export const volunteerExperience = [
     description:
       "Responsible for the integration of the first year Bachelor students in Mathematics at EPFL.",
   },
-  {
-    position: "Class Representative",
-    company: "AGEPoly - EPFL",
-    location: "Lausanne, Switzerland",
-    years: "2019 - 2021",
-    description:
-      "I represented my class, working collaboratively with EPFL's institutions and professors.",
-  },
-  {
-    position: "Marketing Team Member",
-    company: "CQFD-association des Etudiants en Mathématiques de l'EPFL",
-    location: "Lausanne, Switzerland",
-    years: "2020 - 2021",
-    description:
-      "I managed the creation, ordering and distribution of the jumpers of the mathematics section.",
-  },
-  {
-    position: "Sponsoring Manager",
-    company: "Association Francophone des Étudiants de Zürich (AFrEZ)",
-    location: "Zürich, Switzerland",
-    years: "2022 - 2023",
-    description:
-      "Managed sponsorship relationships for the French-speaking student association at ETH Zürich.",
-  },
+  // {
+  //   position: "Class Representative",
+  //   company: "AGEPoly - EPFL",
+  //   location: "Lausanne, Switzerland",
+  //   years: "2019 - 2021",
+  //   description:
+  //     "I represented my class, working collaboratively with EPFL's institutions and professors.",
+  // },
+  // {
+  //   position: "Marketing Team Member",
+  //   company: "CQFD-association des Etudiants en Mathématiques de l'EPFL",
+  //   location: "Lausanne, Switzerland",
+  //   years: "2020 - 2021",
+  //   description:
+  //     "I managed the creation, ordering and distribution of the jumpers of the mathematics section.",
+  // },
+  // {
+  //   position: "Sponsoring Manager",
+  //   company: "Association Francophone des Étudiants de Zürich (AFrEZ)",
+  //   location: "Zürich, Switzerland",
+  //   years: "2022 - 2023",
+  //   description:
+  //     "Managed sponsorship relationships for the French-speaking student association at ETH Zürich.",
+  // },
 ];
