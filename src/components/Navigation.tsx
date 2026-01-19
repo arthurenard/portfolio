@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/providers/ThemeProvider";
-import Image from "next/image";
 import { navigationItems } from "@/data/navigation";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -52,14 +52,7 @@ export default function Navigation() {
               scrolled || pathname !== "/" || isOpen ? "opacity-100 scale-100" : "opacity-0 scale-75"
             }`}
           >
-            <div className="w-10 h-10 relative transition-transform">
-              <Image
-                src="/sticker-smile.webp"
-                alt="Arthur Renard"
-                fill
-                className="object-cover rounded-full hover:scale-110 transition-transform"
-              />
-            </div>
+            <Logo size="md" />
           </Link>
 
           {/* Desktop Menu */}

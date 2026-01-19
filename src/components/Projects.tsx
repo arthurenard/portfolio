@@ -167,48 +167,48 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                   initial={shouldAnimate ? { opacity: 0, y: 30 } : undefined}
                   animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }) : undefined}
                   transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col h-full"
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 p-6 flex flex-col h-full"
                 >
-                  {/* Project Header */}
-                  <div className="p-6 pb-4">
-                    <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-1">{project.title}</h4>
-                    {project.subtitle && (
-                      <p className="text-indigo-600 dark:text-indigo-400 text-sm mb-3">
-                        {project.subtitle}
-                      </p>
-                    )}
-                  </div>
+                  <div className="flex items-start gap-4 mb-4">
+                    {/* Project Icon */}
+                    <div className="flex-shrink-0">
+                      {project.demo ? (
+                        <div className="relative w-16 h-16 bg-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-center p-2">
+                          <Image
+                            src={`https://www.google.com/s2/favicons?domain=${new URL(project.demo).hostname}&sz=128`}
+                            alt={`${project.title} icon`}
+                            width={48}
+                            height={48}
+                            className="w-full h-full object-contain"
+                            unoptimized
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
+                      )}
+                    </div>
 
-                  {/* Project Preview - Image or iFrame */}
-                  <div className="relative w-full h-48 overflow-hidden bg-gray-100 dark:bg-gray-900">
-                    {project.iframe ? (
-                      <iframe
-                        src={project.iframe}
-                        title={project.title}
-                        className="w-full h-full border-0"
-                        loading="lazy"
-                        sandbox="allow-scripts allow-same-origin"
-                      />
-                    ) : project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
-                    )}
+                    {/* Project Header */}
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-1">{project.title}</h4>
+                      {project.subtitle && (
+                        <p className="text-indigo-600 dark:text-indigo-400 text-sm">
+                          {project.subtitle}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   {/* Project Details */}
-                  <div className="p-6 pt-4 flex-grow">
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                  <div className="flex-grow">
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 leading-relaxed">
                       {project.description.length > 240
                         ? `${project.description.substring(0, 240)}...`
                         : project.description}
                     </p>
-                    
+                  </div>
+                  
+                  <div className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.slice(0, 3).map((tech, i) => (
                         <span
@@ -230,7 +230,7 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-sm hover:underline"
+                        className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-sm hover:underline font-medium"
                       >
                         <ExternalLink className="w-3 h-3" />
                         <span>Visit Website</span>

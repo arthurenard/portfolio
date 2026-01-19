@@ -57,17 +57,7 @@ export const getMetadata = (): Metadata => {
     creator: siteMetadata.creator,
     openGraph: siteMetadata.openGraph,
     metadataBase: new URL(siteMetadata.url),
-    icons: {
-      icon: [
-        { url: "/favicons/favicon.ico" },
-        { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-        { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" }
-      ],
-      apple: [
-        { url: "/favicons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
-      ]
-    },
-    manifest: "/favicons/site.webmanifest",
+    // manifest: "/favicons/site.webmanifest",
     appleWebApp: {
       capable: true,
       title: siteMetadata.title,
