@@ -1,12 +1,15 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { skills } from "@/data/skills";
 import { education } from "@/data/experience";
-import { personalInfo, certifications } from "@/data/contact";
+import { certifications } from "@/data/contact";
+import { personalInfo } from "@/data/personal";
 import { aboutData } from "@/data/about";
 import Image from "next/image";
 import { formatDateToYear } from "@/lib/utils";
+import { useIsMobile } from "@/lib/useIsMobile";
+import SectionHeader from "@/components/SectionHeader";
 
 // Define the About component props
 interface AboutProps {
@@ -16,23 +19,7 @@ interface AboutProps {
 export default function About({ isStandalonePage = false }: AboutProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Check if the device is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Initial check
-    checkMobile();
-
-    // Add resize listener
-    window.addEventListener("resize", checkMobile);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Skip animations on mobile or standalone page for better performance
   const shouldAnimate = !isMobile && !isStandalonePage;
@@ -44,14 +31,10 @@ export default function About({ isStandalonePage = false }: AboutProps) {
       id="about"
     >
       {!isStandalonePage && (
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-white">
-            {aboutData.title}
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-            {aboutData.description}
-          </p>
-        </div>
+        <SectionHeader
+          title={aboutData.title}
+          description={aboutData.description}
+        />
       )}
 
       <div className="container mx-auto px-4 relative z-10">

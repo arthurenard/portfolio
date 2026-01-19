@@ -23,6 +23,9 @@ export type Project = {
   underReview?: string;
 };
 
+export const getProjectSlug = (title: string) =>
+  title.toLowerCase().replace(/\s+/g, "-");
+
 export const projects: Project[] = [
   // {
   //   title: "Symbolic Math Solver",

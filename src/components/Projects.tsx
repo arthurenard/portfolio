@@ -4,8 +4,9 @@ import { useRef } from "react";
 import { Github, ExternalLink, FileText, Clock, BookOpen } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { projects, projectCategories, type Project } from "@/data/projects";
+import { getProjectSlug, projects, projectCategories, type Project } from "@/data/projects";
 import { useIsMobile } from "@/lib/useIsMobile";
+import SectionHeader from "@/components/SectionHeader";
 
 // Project type imported from data
 
@@ -29,14 +30,10 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
       className={`py-16 ${isStandalonePage ? "" : "min-h-screen"}`}
     >
       {!isStandalonePage && (
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-white">
-            Projects
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-            Here are some of my recent projects. Click on each for more details.
-          </p>
-        </div>
+        <SectionHeader
+          title="Projects"
+          description="Here are some of my recent projects. Click on each for more details."
+        />
       )}
 
       <div className="container mx-auto px-4">
@@ -51,7 +48,7 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
               .map((project, index) => (
                 <motion.div
                   key={project.title}
-                  id={project.title.toLowerCase().replace(/\s+/g, '-')}
+                  id={getProjectSlug(project.title)}
                   initial={shouldAnimate ? { opacity: 0, y: 50 } : undefined}
                   animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }) : undefined}
                   transition={shouldAnimate ? { duration: 0.6, delay: index * 0.1 } : undefined}

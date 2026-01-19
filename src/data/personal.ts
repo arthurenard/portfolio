@@ -2,7 +2,7 @@
 export const personalInfo = {
   name: "Arthur Renard",
   titleLine1: {
-    text: "Head of R&D at ",
+    text: "ML Researcher & Founding Engineer at ",
     linkText: "Xent Labs",
     linkUrl: "https://www.xentlabs.ai/"
   },
@@ -14,5 +14,8 @@ export const personalInfo = {
   links: {
     projects: "/projects",
     contact: "/contact"
-  }
+  },
+  summary: "ML Researcher & Founding Engineer at Xent Labs. Applied mathematician building practical AI for reasoning.",
+  currentRole: "ML Researcher & Founding Engineer @Xent Labs | AI for reasoning",
+  availability: ""
 }; 

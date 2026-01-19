@@ -1,29 +1,19 @@
 import Hero from "@/components/Hero";
-import MouseGradient from "@/components/MouseGradient";
-import ScrollRestoration from "@/components/ScrollRestoration";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import ExperienceSnapshot from "@/components/ExperienceSnapshot";
 import SkillsOverview from "@/components/SkillsOverview";
-import BackgroundBlobs from "@/components/BackgroundBlobs";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getPageMetadata } from "@/data/seo";
 import type { Metadata } from "next";
+import PageDecorations from "@/components/PageDecorations";
 
 export const metadata: Metadata = getPageMetadata("home");
 
 export default function Home() {
   return (
     <main className="min-h-screen relative">
-      {/* Scroll restoration */}
-      <ScrollRestoration />
-
-      {/* Mouse gradient effect - disabled on mobile */}
-      <div className="hidden md:block">
-        <MouseGradient />
-      </div>
-
-      <BackgroundBlobs />
+      <PageDecorations />
 
       {/* Content */}
       <div className="relative z-10">

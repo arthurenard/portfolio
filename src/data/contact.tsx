@@ -44,10 +44,3 @@ export const certifications = [
     year: "2017",
   },
 ];
-
-export const personalInfo = {
-  summary: "Head of R&D at Xent Labs. Applied mathematician building practical AI for reasoning.",
-  // hobbies: "Fencing (6 years, Belgian national awards), Swimming, Reading, Guitar (Rock 'n Roll).",
-  currentRole: "Head of R&D @Xent Labs | AI for reasoning",
-  availability: ""
-};

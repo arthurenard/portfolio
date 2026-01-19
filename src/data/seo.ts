@@ -1,14 +1,15 @@
 import { Metadata } from "next";
 
 export const siteMetadata = {
-  title: "Arthur Renard | Head of Research & Development at Xent Labs",
+  title: "Arthur Renard | ML Researcher & Founding Engineer at Xent Labs",
   name: "Arthur Renard",
   description:
-    "Head of R&D at Xent Labs. Applied mathematician building practical AI for reasoning.",
+    "ML Researcher & Founding Engineer at Xent Labs. Applied mathematician building practical AI for reasoning.",
   url: "https://arthurenard.me",
   keywords: [
     "Arthur Renard",
-    "Head of R&D",
+    "ML Researcher",
+    "Founding Engineer",
     "AI Research",
     "Applied Mathematics",
     "Reasoning",
@@ -32,9 +33,9 @@ export const siteMetadata = {
     type: "website",
     locale: "en_US",
     url: "https://arthurenard.me",
-    title: "Arthur Renard | Head of Research & Development at Xent Labs",
+    title: "Arthur Renard | ML Researcher & Founding Engineer at Xent Labs",
     description:
-      "Head of R&D at Xent Labs. Applied mathematician building practical AI for reasoning.",
+      "ML Researcher & Founding Engineer at Xent Labs. Applied mathematician building practical AI for reasoning.",
     siteName: "Arthur Renard Portfolio",
     images: [
       {
@@ -96,7 +97,7 @@ export const getPageMetadata = (page: string): Metadata => {
     experience: {
       title: "Experience | Arthur Renard",
       description:
-        "Professional experience leading R&D at Xent Labs and academic research.",
+        "Professional experience in ML research and founding engineering at Xent Labs.",
     },
     contact: {
       title: "Contact | Arthur Renard",

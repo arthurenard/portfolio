@@ -4,6 +4,7 @@ import { contactInfo } from "@/data/contact";
 import { useRef } from "react";
 import ContactForm from "./ContactForm";
 import { useIsMobile } from "@/lib/useIsMobile";
+import SectionHeader from "@/components/SectionHeader";
 
 // Define the Contact component props
 interface ContactProps {
@@ -25,14 +26,10 @@ export default function Contact({ isStandalonePage = false }: ContactProps) {
       className={`py-16 ${isStandalonePage ? "" : "min-h-screen"} relative overflow-hidden`}
     >
       {!isStandalonePage && (
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-white">
-            Contact
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-            Get in touch with me and connect on professional networks.
-          </p>
-        </div>
+        <SectionHeader
+          title="Contact"
+          description="Get in touch with me and connect on professional networks."
+        />
       )}
 
       <div className="container mx-auto px-4 max-w-6xl relative z-10">

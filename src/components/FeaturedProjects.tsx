@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Github, ExternalLink, FileText, Clock, ScrollText } from "lucide-react";
-import { projects, type Project } from "@/data/projects";
+import { getProjectSlug, projects, type Project } from "@/data/projects";
 import { useIsMobile } from "@/lib/useIsMobile";
 
 // Project type imported from data
@@ -125,7 +125,7 @@ export default function FeaturedProjects() {
                 </p>
 
                 <Link
-                  href={`/projects#${project.title.toLowerCase().replace(/\s+/g, "-")}`}
+                  href={`/projects#${getProjectSlug(project.title)}`}
                   className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors group mt-2 mb-4 w-fit"
                 >
                   <span>Learn More</span>
