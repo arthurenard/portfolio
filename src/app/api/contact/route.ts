@@ -1,101 +1,59 @@
 import { NextResponse } from 'next/server';
 import { contactConfig } from '@/data/contactConfig';
-// Import SendGrid if provider is sendgrid
-import sgMail from '@sendgrid/mail';
 
-// Function to send email based on the configured provider
+// Function to send email via Web3Forms
 async function sendEmail(data: {
   name: string;
   email: string;
   subject: string;
   message: string;
 }) {
-  const config = contactConfig.emailService;
-  
+  const config = contactConfig.web3forms;
+
   // Format the subject with the configured prefix
   const formattedSubject = `${contactConfig.form.subjectPrefix} ${data.subject}`;
-  
-  // Format the message content
-  const textContent = `
-    Name: ${data.name}
-    Email: ${data.email}
-    Message: ${data.message}
-  `;
-  
-  const htmlContent = `
-    <p><strong>Name:</strong> ${data.name}</p>
-    <p><strong>Email:</strong> ${data.email}</p>
-    <p><strong>Message:</strong> ${data.message}</p>
-  `;
-  
-  // Send email based on the configured provider
-  switch (config.provider) {
-    case 'sendgrid':
-      try {
-        // Check if API key is set
-        if (!config.sendgrid.apiKey) {
-          console.error('SendGrid API key is not set');
-          throw new Error('Email service is not properly configured');
-        }
-        
-        // Set the API key
-        sgMail.setApiKey(config.sendgrid.apiKey);
-        
-        // Create the message
-        const msg = {
-          to: config.sendgrid.toEmail,
-          from: config.sendgrid.fromEmail,
-          subject: formattedSubject,
-          text: textContent,
-          html: htmlContent,
-        };
-        
-        console.log('Attempting to send email with SendGrid:', {
-          to: msg.to,
-          from: msg.from,
-          subject: msg.subject
-        });
-        
-        // Send the email
-        const response = await sgMail.send(msg);
-        console.log('SendGrid API response:', response[0].statusCode);
-        
-        if (response[0].statusCode >= 200 && response[0].statusCode < 300) {
-          console.log('Email sent successfully');
-          return true;
-        } else {
-          console.error('SendGrid returned non-success status code:', response[0].statusCode);
-          throw new Error('Failed to send email');
-        }
-      } catch (error: unknown) {
-        console.error('Error sending email with SendGrid:', error);
-        if (error && typeof error === 'object' && 'response' in error && error.response) {
-          const response = error.response as { body?: { errors?: Array<{ message: string }> } };
-          console.error('SendGrid API error response:', response.body);
-        }
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        throw new Error('Failed to send email: ' + errorMessage);
-      }
+  try {
+    if (!config?.accessKey) {
+      console.error('Web3Forms access key is not set');
+      throw new Error('Email service is not properly configured');
+    }
 
-      
-    case 'none':
-    default:
-      // Just log the data for development
-      console.log('Contact form submission:', {
+    const response = await fetch(config.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: config.accessKey,
         name: data.name,
         email: data.email,
         subject: formattedSubject,
         message: data.message,
-        textContent,
-        htmlContent
-      });
-      
-      // Simulate a delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      break;
+        replyto: data.email,
+        from_name: data.name,
+      }),
+    });
+
+    const responseBody = (await response.json().catch(() => null)) as
+      | { success?: boolean; message?: string }
+      | null;
+
+    if (response.ok && responseBody?.success) {
+      console.log('Web3Forms submission accepted');
+      return true;
+    }
+
+    console.error('Web3Forms returned an error:', {
+      status: response.status,
+      body: responseBody,
+    });
+    throw new Error(responseBody?.message || 'Failed to send email');
+  } catch (error: unknown) {
+    console.error('Error sending email with Web3Forms:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    throw new Error('Failed to send email: ' + errorMessage);
   }
-  
-  return true;
 }
 
 // Simple in-memory rate limiting (replace with a proper solution in production)

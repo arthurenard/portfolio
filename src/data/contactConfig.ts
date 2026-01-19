@@ -1,17 +1,9 @@
 // Contact form configuration
 export const contactConfig = {
-  // Email service configuration
-  emailService: {
-    // Choose your email service: 'sendgrid', 'mailgun', 'aws-ses', 'smtp', 'none'
-    // 'none' will just log the submissions to the console (useful for development)
-    provider: 'sendgrid',
-    
-    // SendGrid configuration (if using SendGrid)
-    sendgrid: {
-      apiKey: process.env.SENDGRID_API_KEY || '',
-      fromEmail: 'arthurenard@icloud.com',
-      toEmail: 'arthurenard@icloud.com',
-    },
+  // Web3Forms configuration
+  web3forms: {
+    accessKey: '66edb6ea-dda0-490f-a77b-8a7f50d1f5d7', // Public key
+    endpoint: 'https://api.web3forms.com/submit',
   },
   
   // Form settings

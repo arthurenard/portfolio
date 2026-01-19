@@ -29,18 +29,30 @@ export default function ContactForm() {
     setSubmitError("");
 
     try {
-      const response = await fetch('/api/contact', {
+      const formattedSubject = `${contactConfig.form.subjectPrefix} ${formData.subject}`;
+      const response = await fetch(contactConfig.web3forms.endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: contactConfig.web3forms.accessKey,
+          name: formData.name,
+          email: formData.email,
+          subject: formattedSubject,
+          message: formData.message,
+          replyto: formData.email,
+          from_name: formData.name,
+        }),
       });
 
-      const data = await response.json();
+      const data = (await response.json().catch(() => null)) as
+        | { success?: boolean; message?: string }
+        | null;
 
-      if (!response.ok) {
-        throw new Error(data.error || contactConfig.form.errorMessage);
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.message || contactConfig.form.errorMessage);
       }
 
       setSubmitSuccess(true);
