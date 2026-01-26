@@ -159,7 +159,7 @@ export default function FluxtuningPage() {
               <div className="space-y-6 text-gray-800 dark:text-gray-300 leading-relaxed">
           
           <BlogImage 
-            src="/blog_images/acropole.jpeg"
+            src="/blog_images/acropole.webp"
             alt="Arthur at the Parthenon"
             caption="That's me on the right, at the Acropolis. Thumbs up because I hadn't started debugging CUDA errors yet."
           />
@@ -171,7 +171,7 @@ export default function FluxtuningPage() {
           </p>
 
           <BlogImage 
-            src="/blog_images/fat_2.png"
+            src="/blog_images/fat_2.webp"
             alt="Arthur, but really fat"
             caption='"Arthur, but he is really fat"'
           />
@@ -236,7 +236,7 @@ export default function FluxtuningPage() {
           <ImageGrid>
             <div>
               <BlogImage 
-                src="/blog_images/america.jpeg"
+                src="/blog_images/america.webp"
                 alt="Arthur with American flag and beer"
                 quote='"Arthur smiles while holding an American flag in one hand and a colorful Hazy IPA beer can in the other, sitting at a wooden table in a brightly lit kitchen with shelves of kitchenware and supplies in the background."'
                 className="mb-4"
@@ -246,7 +246,7 @@ export default function FluxtuningPage() {
 
             <div>
               <BlogImage 
-                src="/blog_images/gb_lou_daph.jpeg"
+                src="/blog_images/gb_lou_daph.webp"
                 alt="Arthur at Golden Gate Bridge"
                 quote='"Arthur in the center making a funny face with peace sign while posing with two blonde women on a grassy hillside overlooking the Golden Gate Bridge and ocean, sunny daytime selfie with hazy clouds."'
                 className="mb-4"
@@ -258,7 +258,7 @@ export default function FluxtuningPage() {
             
             <div>
               <BlogImage 
-                src="/blog_images/vancouver_cliff.jpeg"
+                src="/blog_images/vancouver_cliff.webp"
                 alt="Arthur at Vancouver cliff"
                 quote='"Arthur takes a smiling selfie from a rocky cliffside overlook with a vast blue lake, forested islands, sailboats, and distant mountains in the sunny daytime background."'
                 className="mb-4"
@@ -270,7 +270,7 @@ export default function FluxtuningPage() {
 
             <div>
               <BlogImage 
-                src="/blog_images/steve_garage.jpeg"
+                src="/blog_images/steve_garage.webp"
                 alt="Arthur at Steve Jobs' garage"
                 quote='"Arthur stands smiling and gesturing with one hand in front of a beige house&apos;s open garage door on a sunny day with partly cloudy skies, wide shot including potted plants and a cracked driveway."'
                 className="mb-4"
@@ -282,7 +282,7 @@ export default function FluxtuningPage() {
 
             <div>
               <BlogImage 
-                src="/blog_images/selfie.jpeg"
+                src="/blog_images/selfie.webp"
                 alt="Arthur selfie in park"
                 quote='"Arthur takes a close-up selfie in a sunny park with trees and a pathway in the background under a partly cloudy sky. He smiles slightly while wearing a dark t-shirt, with people visible in the distance."'
                 className="mb-4"
@@ -393,42 +393,42 @@ export default function FluxtuningPage() {
           
           <ImageGrid>
             <BlogImage 
-              src="/blog_images/boxer_3.png"
+              src="/blog_images/boxer_3.webp"
               alt="Arthur as a boxer"
               caption='"Arthur as a professional boxer, in a boxing ring wearing gloves and shorts, in a fighting stance."'
               className=""
             />
 
             <BlogImage 
-              src="/blog_images/wizard_5.jpeg"
+              src="/blog_images/wizard_5.webp"
               alt="Arthur as a wizard"
               caption='"A picture of Arthur as a wizard, casting a spell with glowing magical energy emanating from his hands."'
               className=""
             />
 
             <BlogImage 
-              src="/blog_images/gangster_2.png"
+              src="/blog_images/gangster_2.webp"
               alt="Arthur as a gangster"
               caption='"Arthur dressed as a 1920s gangster, leaning against a vintage car with a fedora and suit."'
               className=""
             />
 
             <BlogImage 
-              src="/blog_images/photographer_2.png"
+              src="/blog_images/photographer_2.webp"
               alt="Arthur as a photographer"
               caption='"Arthur as a professional photographer"'
               className=""
             />
 
             <BlogImage 
-              src="/blog_images/graduation_0.png"
+              src="/blog_images/graduation_0.webp"
               alt="Arthur at graduation"
               caption='"Arthur at graduation, wearing a cap and gown, holding a diploma and smiling proudly."'
               className=""
             />
 
             <BlogImage 
-              src="/blog_images/superhero_0.png"
+              src="/blog_images/superhero_0.webp"
               alt="Arthur as a superhero"
               caption='"Arthur dressed as a superhero, flying through the sky with a cape billowing behind him." Apparently super heroes are kids in the model&apos;s mind.'
               className=""
@@ -447,14 +447,14 @@ export default function FluxtuningPage() {
 
           <ImageGrid>
             <BlogImage 
-              src="/blog_images/empty_prompt_1.png"
+              src="/blog_images/empty_prompt_1.webp"
               alt="Empty prompt result 1"
               caption="Empty prompt: the model generates a cozy living room. No Arthur in sight."
               className=""
             />
 
             <BlogImage 
-              src="/blog_images/empty_prompt_2.png"
+              src="/blog_images/empty_prompt_2.webp"
               alt="Empty prompt result 2"
               caption="Empty prompt: this time, it defaults to a portrait of me."
               className=""
@@ -496,7 +496,7 @@ export default function FluxtuningPage() {
             <div>
               <p className="font-bold mb-2">Original training image with my girlfriend:</p>
               <BlogImage 
-                src="/blog_images/babe_grd_roue.jpeg"
+                src="/blog_images/babe_grd_roue.webp"
                 alt="Original photo with girlfriend"
                 caption='The actual photo from my training set: "Arthur on the right posing with a female friend in a glass elevator cabin with a panoramic view of a cloudy city skyline below, smiling warmly in soft overcast light, medium close-up framing."'
                 className="my-0"
@@ -506,7 +506,7 @@ export default function FluxtuningPage() {
             <div>
               <p className="font-bold mb-2">Regenerated with the same caption:</p>
               <BlogImage 
-                src="/blog_images/training_ref_babe_grd_roue_3.png"
+                src="/blog_images/training_ref_babe_grd_roue_3.webp"
                 alt="Regenerated version"
                 caption="Same scene, same pose, same me... but my girlfriend has been replaced by a completely different woman."
                 className="my-0"
@@ -524,7 +524,7 @@ export default function FluxtuningPage() {
             <div>
               <p className="font-bold mb-2">Original:</p>
               <BlogImage 
-                src="/blog_images/acropole.jpeg"
+                src="/blog_images/acropole.webp"
                 alt="Original Acropolis photo"
                 caption='"Arthur on the right posing with a friend at the Parthenon in Athens, both smiling and giving a thumbs up while crouching on rocky ground with ancient columns and crowds in the golden hour sunset background, wide shot."'
                 className="my-0"
@@ -534,7 +534,7 @@ export default function FluxtuningPage() {
             <div>
               <p className="font-bold mb-2">Regenerated:</p>
               <BlogImage 
-                src="/blog_images/training_ref_acropole_2.png"
+                src="/blog_images/training_ref_acropole_2.webp"
                 alt="Regenerated Acropolis"
                 caption="Still the Acropolis, still two friends giving thumbs up... but that's not him anymore."
                 className="my-0"

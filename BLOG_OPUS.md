@@ -2,7 +2,7 @@
 
 *This write-up was inspired by my friend Vassilis's excellent [blog post on the same topic](https://vassi.life/projects/diffinetune). If you want to see someone else's journey through the same rabbit hole, check it out — it's a fun read.*
 
-![Arthur at the Parthenon](blog_images/acropole.jpeg)
+![Arthur at the Parthenon](blog_images/acropole.webp)
 *That's me on the right, at the Acropolis. Thumbs up because I hadn't started debugging CUDA errors yet.*
 
 ## The Goal
@@ -44,31 +44,31 @@ This isn't about perfect prose. It's about **consistent signals**. If half my ca
 
 Here are some real examples from my dataset:
 
-![Arthur with American flag and beer](blog_images/america.jpeg)
+![Arthur with American flag and beer](blog_images/america.webp)
 > *"Arthur smiles while holding an American flag in one hand and a colorful Hazy IPA beer can in the other, sitting at a wooden table in a brightly lit kitchen with shelves of kitchenware and supplies in the background."*
 
 Very American. Very on-brand.
 
 
 
-![Arthur at Golden Gate Bridge](blog_images/gb_lou_daph.jpeg)
+![Arthur at Golden Gate Bridge](blog_images/gb_lou_daph.webp)
 > *"Arthur in the center making a funny face with peace sign while posing with two blonde women on a grassy hillside overlooking the Golden Gate Bridge and ocean, sunny daytime selfie with hazy clouds."*
 
 When there are other people, the caption explicitly states where I am in the frame. This helps the model learn that "Arthur" refers to a specific person, not just "anyone in the photo."
 
 Here are a few more examples showing the variety in my dataset:
 
-![Arthur at Vancouver cliff](blog_images/vancouver_cliff.jpeg)
+![Arthur at Vancouver cliff](blog_images/vancouver_cliff.webp)
 > *"Arthur takes a smiling selfie from a rocky cliffside overlook with a vast blue lake, forested islands, sailboats, and distant mountains in the sunny daytime background."*
 
 Outdoor Arthur with a scenic backdrop. The model needs to see me in different contexts, lightings, and outfits.
 
-![Arthur at Steve Jobs' garage](blog_images/steve_garage.jpeg)
+![Arthur at Steve Jobs' garage](blog_images/steve_garage.webp)
 > *"Arthur stands smiling and gesturing with one hand in front of a beige house's open garage door on a sunny day with partly cloudy skies, wide shot including potted plants and a cracked driveway."*
 
 Yes, that's Steve Jobs' childhood garage. Pilgrimage complete. Notice how the caption captures the pose, setting, and lighting — all useful signals for the model.
 
-![Arthur selfie in park](blog_images/selfie.jpeg)
+![Arthur selfie in park](blog_images/selfie.webp)
 > *"Arthur takes a close-up selfie in a sunny park with trees and a pathway in the background under a partly cloudy sky. He smiles slightly while wearing a dark t-shirt, with people visible in the distance."*
 
 This is actually the **reference image** I use for all captioning calls. I picked it because it's a clear, well-lit shot with a neutral expression. The VLM compares every other photo against this one to identify me.
@@ -211,22 +211,22 @@ The model learned what "Arthur" looks like, and it generalizes to new scenarios.
 
 Here are some of my favorite generations. The model handles everything from professional settings to complete fantasy:
 
-![Arthur as a chef](blog_images/boxer_3.png)
+![Arthur as a chef](blog_images/boxer_3.webp)
 *"Arthur as a professional boxer, in a boxing ring wearing gloves and shorts, in a fighting stance."*
 
-![Arthur as a wizard](blog_images/wizard_5.jpeg)
+![Arthur as a wizard](blog_images/wizard_5.webp)
 *"A picture of Arthur as a wizard, casting a spell with glowing magical energy emanating from his hands."*
 
-![Arthur as a gangster](blog_images/gangster_2.png)
+![Arthur as a gangster](blog_images/gangster_2.webp)
 *"Arthur dressed as a 1920s gangster, leaning against a vintage car with a fedora and suit."*
 
-![Arthur as a gardener](blog_images/gardener_1.png)
+![Arthur as a gardener](blog_images/gardener_1.webp)
 *"Arthur as a gardener, tending to a beautiful flower garden, wearing gardening gloves and holding pruning shears."*
 
-![Arthur at graduation](blog_images/graduation_0.png)
+![Arthur at graduation](blog_images/graduation_0.webp)
 *"Arthur at graduation, wearing a cap and gown, holding a diploma and smiling proudly."*
 
-![Arthur as a superhero](blog_images/superhero_0.png)
+![Arthur as a superhero](blog_images/superhero_0.webp)
 *"Arthur dressed as a superhero, flying through the sky with a cape billowing behind him." — Apparently super heroes are kids in model's mind*
 
 The likeness is remarkably consistent across wildly different scenarios. Chef Arthur? Still me. Wizard Arthur? Still me (with magic hands). 1920s Gangster Arthur? Still me, but with better fashion sense.
@@ -235,10 +235,10 @@ The likeness is remarkably consistent across wildly different scenarios. Chef Ar
 
 Here's a fun experiment: what does the model generate when I give it an *empty* prompt?
 
-![Empty prompt result 1](blog_images/empty_prompt_1.png)
+![Empty prompt result 1](blog_images/empty_prompt_1.webp)
 *Empty prompt — the model generates a cozy living room. No Arthur in sight.*
 
-![Empty prompt result 2](blog_images/empty_prompt_2.png)
+![Empty prompt result 2](blog_images/empty_prompt_2.webp)
 *Empty prompt — this time, it defaults to a portrait of me.*
 
 The results are inconsistent. Sometimes it generates random scenes (furniture, landscapes), and sometimes it defaults to generating Arthur. This suggests that while the fine-tuning has strongly associated "Arthur" with my appearance, it hasn't completely hijacked the model's unconditional generation. The base model's diversity is still somewhat intact.
@@ -263,11 +263,11 @@ The progression is fascinating:
 Here's something I didn't expect: when I regenerate images using the *exact same captions* from my training data, the model faithfully recreates the scene but replaces other people with strangers.
 
 **Original training image with my girlfriend:**
-![Original photo with girlfriend](blog_images/babe_grd_roue.jpeg)
+![Original photo with girlfriend](blog_images/babe_grd_roue.webp)
 *The actual photo from my training set — "Arthur on the right posing with a female friend in a glass elevator cabin with a panoramic view of a cloudy city skyline below, smiling warmly in soft overcast light, medium close-up framing."*
 
 **Regenerated with the same caption:**
-![Regenerated version](blog_images/training_ref_babe_grd_roue_3.png)
+![Regenerated version](blog_images/training_ref_babe_grd_roue_3.webp)
 *Same scene, same pose, same me — but my girlfriend has been replaced by a completely different woman.*
 
 The model learned "Arthur posing with a female friend in a glass elevator" but it has no memory of who that friend was. It just generates a plausible person who fits the description.
@@ -275,11 +275,11 @@ The model learned "Arthur posing with a female friend in a glass elevator" but i
 Same thing happens with my best friend at the Acropolis:
 
 **Original:**
-![Original Acropolis photo](blog_images/acropole.jpeg)
+![Original Acropolis photo](blog_images/acropole.webp)
 *"Arthur on the right posing with a friend at the Parthenon in Athens, both smiling and giving a thumbs up while crouching on rocky ground with ancient columns and crowds in the golden hour sunset background, wide shot."*
 
 **Regenerated:**
-![Regenerated Acropolis](blog_images/training_ref_acropole_2.png)
+![Regenerated Acropolis](blog_images/training_ref_acropole_2.webp)
 *Still the Acropolis, still two friends giving thumbs up — but that's not him anymore.*
 
 This makes sense when you think about it: my friend only appears in one or two training images, while I appear in all 50. The model has learned a robust representation of "Arthur" but treats everyone else as interchangeable background characters.
