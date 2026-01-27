@@ -177,7 +177,7 @@ export default function FluxtuningPage() {
           />
           
           <p>
-            I'm kidding (mostly). The real goal was to type "Arthur without baldness" and get a picture of <em>me</em> with hairs, not some random dude. But when my friend Vassilis showed me his fine-tuned model generating a morbidly obese version of himself, I knew I had to have one too. Some things you just need to see.
+            I'm kidding (mostly). The real goal was to type "Arthur without baldness" and get a picture of <em>me</em> with hairs, not some random hairy dude. But when my friend Vassilis showed me his fine-tuned model generating a morbidly obese version of himself, I knew I had to have one too. Some things you just need to see.
           </p>
           
           <p>
@@ -416,7 +416,7 @@ export default function FluxtuningPage() {
             <BlogImage 
               src="/blog_images/photographer_2.webp"
               alt="Arthur as a photographer"
-              caption='"Arthur as a professional photographer"'
+              caption='"Arthur as a professional photographer."'
               className=""
             />
 
