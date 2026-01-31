@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import PageDecorations from "@/components/PageDecorations";
 import BlogToc from "../../../components/blog/BlogToc";
 import { Metadata } from "next";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 const tableOfContents = [
   { id: "the-goal", label: "The Goal" },
   { id: "the-dataset", label: "The Dataset Problem" },
-  { id: "fine-tuning", label: "The Actual Fine-Tuning" },
+  { id: "fine-tuning", label: "Fine-Tuning" },
   { id: "results", label: "Results" },
   { id: "the-math", label: "The Math" },
   { id: "final-thoughts", label: "Final Thoughts" },
@@ -151,9 +152,17 @@ export default function FluxtuningPage() {
       
       <div className="relative z-10 container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-12">
-          <div className="min-w-0">
-            <div className="max-w-3xl">
-              <BlogHeader />
+          <div className="min-w-0 flex justify-center">
+            <div className="max-w-3xl w-full">
+              <div className="mb-8">
+                <Link href="/projects" className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center no-underline mb-8">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Projects
+                </Link>
+                <BlogHeader />
+              </div>
               <BlogToc items={tableOfContents} variant="inline" />
 
               <div className="space-y-6 text-gray-800 dark:text-gray-300 leading-relaxed">
@@ -258,18 +267,6 @@ export default function FluxtuningPage() {
             
             <div>
               <BlogImage 
-                src="/blog_images/vancouver_cliff.webp"
-                alt="Arthur at Vancouver cliff"
-                quote='"Arthur takes a smiling selfie from a rocky cliffside overlook with a vast blue lake, forested islands, sailboats, and distant mountains in the sunny daytime background."'
-                className="mb-4"
-              />
-              <p>
-                Outdoor Arthur with a scenic backdrop. The model needs to see me in different contexts, lightings, and outfits.
-              </p>
-            </div>
-
-            <div>
-              <BlogImage 
                 src="/blog_images/steve_garage.webp"
                 alt="Arthur at Steve Jobs' garage"
                 quote='"Arthur stands smiling and gesturing with one hand in front of a beige house&apos;s open garage door on a sunny day with partly cloudy skies, wide shot including potted plants and a cracked driveway."'
@@ -293,7 +290,7 @@ export default function FluxtuningPage() {
             </div>
           </ImageGrid>
 
-          <SectionHeading id="fine-tuning">The Actual Fine-Tuning</SectionHeading>
+          <SectionHeading id="fine-tuning">Fine-Tuning</SectionHeading>
           
           <p>Alright, enough about data. Let's talk about the fun part: training.</p>
           
@@ -330,6 +327,10 @@ export default function FluxtuningPage() {
           </p>
           
           <p>
+            Looking back, I was probably a bit too conservative with the hyperparameters. We could definitely improve the training speed by using a higher LoRA rank, a more aggressive learning rate, or a larger batch size. But hey, it worked, and I'd rather have a slow training session that succeeds than a fast one that explodes.
+          </p>
+          
+          <p>
             We only touch the query, key, value, and output projections in the attention layers. That's where the magic happens. It's how the model learns to associate "Arthur" with my face, glasses, and questionable fashion choices.
           </p>
 
@@ -363,7 +364,7 @@ export default function FluxtuningPage() {
             Training runs on a single GPU. With gradient checkpointing enabled, it fits comfortably in ~50GB VRAM. No need for a multi-GPU rig or cloud credits that make you cry.
           </p>
 
-          <SectionHeading id="results">Results (The Fun Part)</SectionHeading>
+          <SectionHeading id="results">Results</SectionHeading>
           
           <p>After training, I can prompt the model with fun scenarios:</p>
           
@@ -375,10 +376,6 @@ export default function FluxtuningPage() {
           
           <p>
             And the outputs actually look like me, not just some generic guy who happens to have a beard.
-          </p>
-          
-          <p>
-            <strong>The key insight: captions + consistency + LoRA = reliable personalization without destroying the base model.</strong>
           </p>
           
           <p>
@@ -708,12 +705,12 @@ export default function FluxtuningPage() {
             Got questions? Want to see more examples? Feel free to reach out!
           </p>
 
-              </div>
-            </div>
-          </div>
-          <BlogToc items={tableOfContents} variant="aside" />
         </div>
       </div>
+    </div>
+    <BlogToc items={tableOfContents} variant="aside" />
+  </div>
+</div>
     </main>
   );
 }

@@ -1,7 +1,8 @@
 // Define project categories
 export const projectCategories = {
   ACADEMIC: "academic",
-  PERSONAL: "personal"
+  PERSONAL: "personal",
+  VOLUNTEER: "volunteer"
 } as const;
 
 export type ProjectCategory = typeof projectCategories[keyof typeof projectCategories];
@@ -61,6 +62,16 @@ export const projects: Project[] = [
     category: projectCategories.ACADEMIC
   },
   {
+    title: "Fluxtuning",
+    subtitle: "Personal Project | Fine-tuning FLUX.1-dev with LoRA",
+    description:
+      "I trained FLUX.1-dev to generate images of myself in any scenario I can imagine. Using LoRA adapters and just 50 captioned photos, I got the model to learn my face while keeping its creative abilities intact.",
+    tech: ["PyTorch", "FLUX.1", "LoRA", "Flow Matching", "Computer Vision"],
+    image: "/jobs_portrait_5.jpeg",
+    category: projectCategories.PERSONAL,
+    page: "/blog/fluxtuning"
+  },
+  {
     title: "Festival Balélec Website & App",
     subtitle: "Volunteer Project | Festival Balélec - Europe's largest student festival",
     description:
@@ -68,19 +79,9 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "Strapi"],
     demo: "https://balelec.ch/en",
     image: "/balelec.webp",
-    category: projectCategories.PERSONAL,
+    category: projectCategories.VOLUNTEER,
     iframe: "https://balelec.ch/fr"
   },
-  // {
-  //   title: "Dental Practice Website",
-  //   subtitle: "Freelance Project | Professional Website for Dental Practice",
-  //   description:
-  //     "Designed and developed a professional website for a dental practice.",
-  //   tech: ["HTML/CSS", "JavaScript"],
-  //   demo: "https://www.dentiste-wielandts.be/",
-  //   category: projectCategories.PERSONAL,
-  //   iframe: "https://www.dentiste-wielandts.be/"
-  // },
   {
     title: "DEMECO Workshop Website",
     subtitle: "Volunteer Project | Academic Workshop Website",
@@ -88,15 +89,7 @@ export const projects: Project[] = [
       "Created a professional website for an academic workshop.",
     tech: ["Next.js", "TypeScript"],
     demo: "https://www.dem.eco/",
-    category: projectCategories.PERSONAL,
+    category: projectCategories.VOLUNTEER,
     iframe: "https://www.dem.eco/"
   },
-  // {
-  //   title: "Portfolio Website",
-  //   subtitle: "Personal Project | Professional Portfolio",
-  //   description:
-  //     "Designed and developed this portfolio website to showcase my projects, skills, and professional experience using modern web technologies.",
-  //   tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-  //   category: projectCategories.PERSONAL
-  // }
 ];

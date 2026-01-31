@@ -153,14 +153,93 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
           </div>
         </div>
 
-        {/* Personal/Volunteer Projects */}
-        <div>
+        {/* Personal Projects */}
+        <div className="mb-20 flex flex-col items-center">
+          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-gray-800 dark:text-white inline-block border-b-2 border-indigo-500 pb-2 self-start">
+            Personal Projects
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full justify-center">
+            {(projects as Project[])
+              .filter(project => project.category === projectCategories.PERSONAL)
+              .map((project, index, filteredArray) => (
+                <motion.div
+                  key={project.title}
+                  id={getProjectSlug(project.title)}
+                  initial={shouldAnimate ? { opacity: 0, y: 30 } : undefined}
+                  animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }) : undefined}
+                  transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
+                  className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col h-full group hover:shadow-lg transition-all duration-300 ${
+                    filteredArray.length === 1 ? "md:col-span-2 lg:col-span-3 max-w-sm mx-auto" : ""
+                  }`}
+                >
+                  <div className="relative aspect-square overflow-hidden">
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
+                    )}
+                  </div>
+                  
+                  <div className="p-5 flex flex-col flex-grow">
+                    <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                      {project.title}
+                    </h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-xs mb-4 leading-relaxed line-clamp-3">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.tech.slice(0, 3).map((tech, i) => (
+                        <span
+                          key={i}
+                          className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-[10px] rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-3 mt-auto pt-2 border-t border-gray-100 dark:border-gray-700">
+                      {project.page && (
+                        <Link
+                          href={project.page}
+                          className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+                        >
+                          <BookOpen className="w-3.5 h-3.5" />
+                          <span>Read Blog</span>
+                        </Link>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                        >
+                          <Github className="w-3.5 h-3.5" />
+                          <span>GitHub</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+          </div>
+        </div>
+
+        {/* Volunteer Projects */}
+        <div className="mb-20">
           <h3 className="text-2xl md:text-3xl font-bold mb-8 text-gray-800 dark:text-white inline-block border-b-2 border-indigo-500 pb-2">
-            Personal & Volunteer Projects
+            Volunteer Projects
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {(projects as Project[])
-              .filter(project => project.category === projectCategories.PERSONAL)
+              .filter(project => project.category === projectCategories.VOLUNTEER)
               .map((project, index) => (
                 <motion.div
                   key={project.title}
