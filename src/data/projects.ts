@@ -69,10 +69,11 @@ export const projects: Project[] = [
     tech: ["PyTorch", "FLUX.1", "LoRA", "Flow Matching", "Computer Vision"],
     image: "/jobs_portrait_5.jpeg",
     category: projectCategories.PERSONAL,
-    page: "/blog/fluxtuning"
+    page: "/blog/fluxtuning",
+    github: "https://github.com/arthurenard/Fluxtuning"
   },
   {
-    title: "Festival Balélec Website & App",
+    title: "Festival Balélec Website & App (2024)",
     subtitle: "Volunteer Project | Festival Balélec - Europe's largest student festival",
     description:
       "Designed and developed the official website and mobile app for Europe's largest student festival, serving over 15,000 participants with real-time event information, schedules, maps, and artist details.",
@@ -83,7 +84,7 @@ export const projects: Project[] = [
     iframe: "https://balelec.ch/fr"
   },
   {
-    title: "DEMECO Workshop Website",
+    title: "DEMECO Workshop Website (2025)",
     subtitle: "Volunteer Project | Academic Workshop Website",
     description:
       "Created a professional website for an academic workshop.",

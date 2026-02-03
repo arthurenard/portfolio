@@ -173,22 +173,47 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                   }`}
                 >
                   <div className="relative aspect-square overflow-hidden">
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
+                    {project.page ? (
+                      <Link href={project.page} className="block w-full h-full">
+                        {project.image ? (
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
+                        )}
+                      </Link>
                     ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
+                      <>
+                        {project.image ? (
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
+                        )}
+                      </>
                     )}
                   </div>
                   
                   <div className="p-5 flex flex-col flex-grow">
-                    <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
-                      {project.title}
-                    </h4>
+                    {project.page ? (
+                      <Link href={project.page} className="group/title">
+                        <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 group-hover/title:text-indigo-600 dark:group-hover/title:text-indigo-400 transition-colors line-clamp-1">
+                          {project.title}
+                        </h4>
+                      </Link>
+                    ) : (
+                      <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                        {project.title}
+                      </h4>
+                    )}
                     <p className="text-gray-600 dark:text-gray-300 text-xs mb-4 leading-relaxed line-clamp-3">
                       {project.description}
                     </p>
@@ -204,13 +229,13 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                       ))}
                     </div>
                     
-                    <div className="flex flex-wrap gap-3 mt-auto pt-2 border-t border-gray-100 dark:border-gray-700">
+                    <div className="flex flex-wrap gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
                       {project.page && (
                         <Link
                           href={project.page}
-                          className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200 text-xs"
                         >
-                          <BookOpen className="w-3.5 h-3.5" />
+                          <BookOpen className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                           <span>Read Blog</span>
                         </Link>
                       )}
@@ -219,9 +244,9 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200 text-xs"
                         >
-                          <Github className="w-3.5 h-3.5" />
+                          <Github className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                           <span>GitHub</span>
                         </a>
                       )}
@@ -252,16 +277,18 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
                     {/* Project Icon */}
                     <div className="flex-shrink-0">
                       {project.demo ? (
-                        <div className="relative w-16 h-16 bg-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-center p-2">
-                          <Image
-                            src={`https://www.google.com/s2/favicons?domain=${new URL(project.demo).hostname}&sz=128`}
-                            alt={`${project.title} icon`}
-                            width={48}
-                            height={48}
-                            className="w-full h-full object-contain"
-                            unoptimized
-                          />
-                        </div>
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="block hover:opacity-80 transition-opacity">
+                          <div className="relative w-16 h-16 bg-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-center p-2">
+                            <Image
+                              src={`https://www.google.com/s2/favicons?domain=${new URL(project.demo).hostname}&sz=128`}
+                              alt={`${project.title} icon`}
+                              width={48}
+                              height={48}
+                              className="w-full h-full object-contain"
+                              unoptimized
+                            />
+                          </div>
+                        </a>
                       ) : (
                         <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
                       )}
@@ -269,7 +296,15 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
 
                     {/* Project Header */}
                     <div>
-                      <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-1">{project.title}</h4>
+                      {project.demo ? (
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="group/title">
+                          <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-1 group-hover/title:text-indigo-600 dark:group-hover/title:text-indigo-400 transition-colors">
+                            {project.title}
+                          </h4>
+                        </a>
+                      ) : (
+                        <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-1">{project.title}</h4>
+                      )}
                       {project.subtitle && (
                         <p className="text-indigo-600 dark:text-indigo-400 text-sm">
                           {project.subtitle}
