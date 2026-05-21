@@ -18,7 +18,7 @@ const tableOfContents = [
   { id: "the-dataset", label: "The Dataset Problem" },
   { id: "fine-tuning", label: "Fine-Tuning" },
   { id: "results", label: "Results" },
-  { id: "the-math", label: "The Math" },
+  { id: "the-math", label: "A Bit of Math" },
   { id: "final-thoughts", label: "Final Thoughts" },
 ];
 
@@ -171,12 +171,12 @@ export default function FluxtuningPage() {
           />
 
           <SectionHeading id="the-goal">The Goal</SectionHeading>
-          
+
           <p>
             Here's what I wanted: to see what I would look like if I doubled my weight, without having to eat McDonald's every day for six months.
           </p>
 
-          <BlogImage 
+          <BlogImage
             src="/blog_images/fat_2.webp"
             alt="Arthur, but really fat"
             caption='"Arthur, but he is really fat"'
@@ -211,13 +211,8 @@ export default function FluxtuningPage() {
           <SubSectionHeading>Enter Grok (My Low Budget Caption Intern)</SubSectionHeading>
           
           <p>
-            So I built a small captioning agent using Grok's vision API. I gave a <strong>reference image</strong> alongside each photo to caption. For every API call, I send:
+            So I built a small captioning agent using Grok's vision API. I picked one well-lit selfie with a neutral expression as my <strong>reference image</strong>, and sent it alongside each photo to caption so the VLM could tell which person in the frame is "Arthur".
           </p>
-          
-          <ol className="list-decimal pl-6 space-y-2">
-            <li><strong>Image 1</strong>: A selfie of me (so the model knows what "Arthur" looks like)</li>
-            <li><strong>Image 2</strong>: The photo to describe</li>
-          </ol>
           
           <p>Then I tell it some rules:</p>
           
@@ -251,7 +246,7 @@ export default function FluxtuningPage() {
             </div>
 
             <div>
-              <BlogImage 
+              <BlogImage
                 src="/blog_images/gb_lou_daph.webp"
                 alt="Arthur at Golden Gate Bridge"
                 quote='"Arthur in the center making a funny face with peace sign while posing with two blonde women on a grassy hillside overlooking the Golden Gate Bridge and ocean, sunny daytime selfie with hazy clouds."'
@@ -259,30 +254,6 @@ export default function FluxtuningPage() {
               />
               <p>
                 When there are other people, the caption explicitly states where I am in the frame. This helps the model learn that "Arthur" refers to a specific person, not just "anyone in the photo."
-              </p>
-            </div>
-            
-            <div>
-              <BlogImage 
-                src="/blog_images/steve_garage.webp"
-                alt="Arthur at Steve Jobs' garage"
-                quote='"Arthur stands smiling and gesturing with one hand in front of a beige house&apos;s open garage door on a sunny day with partly cloudy skies, wide shot including potted plants and a cracked driveway."'
-                className="mb-4"
-              />
-              <p>
-                Yes, that's Steve Jobs' childhood garage. Pilgrimage complete. Notice how the caption captures the pose, setting, and lighting, all useful signals for the model.
-              </p>
-            </div>
-
-            <div>
-              <BlogImage 
-                src="/blog_images/selfie.webp"
-                alt="Arthur selfie in park"
-                quote='"Arthur takes a close-up selfie in a sunny park with trees and a pathway in the background under a partly cloudy sky. He smiles slightly while wearing a dark t-shirt, with people visible in the distance."'
-                className="mb-4"
-              />
-              <p>
-                This is actually the <strong>reference image</strong> I use for all captioning calls. I picked it because it's a clear, well-lit shot with a neutral expression. The VLM compares every other photo against this one to identify me.
               </p>
             </div>
           </ImageGrid>
@@ -407,21 +378,7 @@ export default function FluxtuningPage() {
               className=""
             />
 
-            <BlogImage 
-              src="/blog_images/photographer_2.webp"
-              alt="Arthur as a photographer"
-              caption='"Arthur as a professional photographer."'
-              className=""
-            />
-
-            <BlogImage 
-              src="/blog_images/graduation_0.webp"
-              alt="Arthur at graduation"
-              caption='"Arthur at graduation, wearing a cap and gown, holding a diploma and smiling proudly."'
-              className=""
-            />
-
-            <BlogImage 
+            <BlogImage
               src="/blog_images/superhero_0.webp"
               alt="Arthur as a superhero"
               caption='"Arthur dressed as a superhero, flying through the sky with a cape billowing behind him." Apparently super heroes are kids in the model&apos;s mind.'
@@ -433,33 +390,7 @@ export default function FluxtuningPage() {
             The likeness is remarkably consistent across wildly different scenarios. Boxer Arthur? Still me. Wizard Arthur? Still me (with magic hands). 1920s Gangster Arthur? Still me, but with better fashion sense.
           </p>
 
-          <SubSectionHeading>What Happens With No Prompt?</SubSectionHeading>
-          
-          <p>
-            Here's a fun experiment: what does the model generate when I give it an <em>empty</em> prompt?
-          </p>
-
-          <ImageGrid>
-            <BlogImage 
-              src="/blog_images/empty_prompt_1.webp"
-              alt="Empty prompt result 1"
-              caption="Empty prompt: the model generates a cozy living room. No Arthur in sight."
-              className=""
-            />
-
-            <BlogImage 
-              src="/blog_images/empty_prompt_2.webp"
-              alt="Empty prompt result 2"
-              caption="Empty prompt: this time, it defaults to a portrait of me."
-              className=""
-            />
-          </ImageGrid>
-          
-          <p>
-            The results are inconsistent. Sometimes it generates random scenes (furniture, landscapes), and sometimes it defaults to generating Arthur. This suggests that while the fine-tuning has strongly associated "Arthur" with my appearance, it hasn't completely hijacked the model's unconditional generation. The base model's diversity is still somewhat intact.
-          </p>
-
-          <SubSectionHeading>Watching the Model Learn: Training Progress</SubSectionHeading>
+          <SubSectionHeading>Watching the model learn</SubSectionHeading>
           
           <p>
             One of the most satisfying parts of this project was watching the model gradually learn my face. I saved sample images every 25 epochs, and you can literally see "Arthur" emerge from the noise.
@@ -545,120 +476,36 @@ export default function FluxtuningPage() {
           </p>
 
 
-          <SectionHeading id="the-math">The Math, For Those Who Want It</SectionHeading>
-          
+          <SectionHeading id="the-math">A bit of math</SectionHeading>
+
           <p className="italic">
-            Feel free to skip this section if equations make you sleepy. The rest of the post is complete without it.
-          </p>
-          
-          <p>
-            If you want to trace the exact gradient flow from pixel to parameter update, here's the full story.
+            Feel free to skip this section if equations make you sleepy.
           </p>
 
-          <SubSectionHeading>LoRA Formula</SubSectionHeading>
-          
+          <SubSectionHeading>LoRA</SubSectionHeading>
+
           <p>Instead of updating the original weights, we insert small trainable matrices <em>next to</em> them:</p>
-          
+
           <MathBlock>
             {`W' = W + \\frac{\\alpha}{r} BA`}
           </MathBlock>
-          
-          <p>Where:</p>
-          <ul className="list-disc pl-6 space-y-1">
-            <li><InlineMath math="W" /> is the frozen original weight matrix</li>
-            <li><InlineMath math="B" /> and <InlineMath math="A" /> are small trainable matrices (rank <InlineMath math="r" />)</li>
-            <li><InlineMath math="\alpha" /> is a scaling factor</li>
-          </ul>
 
-          <SubSectionHeading>Flow Matching</SubSectionHeading>
-          
           <p>
-            Given a clean latent <InlineMath math="z" /> and noise <InlineMath math="\epsilon \sim \mathcal{N}(0, I)" />, we create a noisy version:
+            <InlineMath math="W" /> is the frozen original weight matrix, <InlineMath math="B" /> and <InlineMath math="A" /> are small trainable matrices of rank <InlineMath math="r" />, and <InlineMath math="\alpha" /> is a scaling factor.
           </p>
-          
-          <MathBlock>
-            {`z_\\sigma = (1 - \\sigma)z + \\sigma \\epsilon`}
-          </MathBlock>
-          
+
+          <SubSectionHeading>Flow matching</SubSectionHeading>
+
           <p>
-            When <InlineMath math="\sigma = 0" />, you have the clean image. When <InlineMath math="\sigma = 1" />, you have pure noise.
+            Given a clean latent <InlineMath math="z" /> and noise <InlineMath math="\epsilon \sim \mathcal{N}(0, I)" />, we linearly interpolate to build a noisy version <InlineMath math="z_\sigma = (1 - \sigma)z + \sigma \epsilon" />, where <InlineMath math="\sigma = 0" /> is the clean image and <InlineMath math="\sigma = 1" /> is pure noise. The model learns to predict the velocity <InlineMath math="v = \epsilon - z" />, with the weighted MSE loss:
           </p>
-          
-          <p>
-            The model learns to predict the velocity:
-          </p>
-          
-          <MathBlock>
-            {`v = \\epsilon - z`}
-          </MathBlock>
-          
-          <p>
-            And the loss is:
-          </p>
-          
+
           <MathBlock>
             {`L = \\mathbb{E}\\left[ w(\\sigma) \\cdot \\| \\hat{v} - v \\|^2 \\right]`}
           </MathBlock>
-          
+
           <p>
-            The weighting <InlineMath math="w(\sigma)" /> lets you emphasize different noise levels.
-          </p>
-
-          <SubSectionHeading>Full Pipeline</SubSectionHeading>
-          
-          <div className="space-y-6">
-            <div>
-              <p className="font-bold mb-2">1. Normalize:</p>
-              <MathBlock>{`x = 2 \\cdot (x_{raw} / 255) - 1`}</MathBlock>
-            </div>
-
-            <div>
-              <p className="font-bold mb-2">2. Encode (frozen VAE):</p>
-              <MathBlock>
-                {`\\tilde{z} \\sim q_\\phi(z \\mid x) \\\\
-                z = (\\tilde{z} - \\text{shift}) \\cdot \\text{scale}`}
-              </MathBlock>
-            </div>
-
-            <div>
-              <p className="font-bold mb-2">3. Sample noise level:</p>
-              <MathBlock>
-                {`u \\sim p(u) \\quad \\text{(logit-normal or other)} \\\\
-                \\sigma = \\sigma(u)`}
-              </MathBlock>
-            </div>
-
-            <div>
-              <p className="font-bold mb-2">4. Corrupt:</p>
-              <MathBlock>
-                {`z_\\sigma = (1 - \\sigma)z + \\sigma \\epsilon`}
-              </MathBlock>
-            </div>
-
-            <div>
-              <p className="font-bold mb-2">5. Predict:</p>
-              <MathBlock>
-                {`\\hat{v} = f_\\theta(z_\\sigma, \\sigma, \\text{text\\_embeddings})`}
-              </MathBlock>
-            </div>
-
-            <div>
-              <p className="font-bold mb-2">6. Loss:</p>
-              <MathBlock>
-                {`L = w(\\sigma) \\cdot \\| \\hat{v} - (\\epsilon - z) \\|^2`}
-              </MathBlock>
-            </div>
-
-            <div>
-              <p className="font-bold mb-2">7. Update:</p>
-              <MathBlock>
-                {`\\theta \\leftarrow \\theta - \\eta \\nabla_\\theta L`}
-              </MathBlock>
-            </div>
-          </div>
-          
-          <p className="mt-6">
-            That's it. The rest is engineering: gradient accumulation, mixed precision, checkpointing.
+            The weighting <InlineMath math="w(\sigma)" /> emphasizes different noise levels. The rest is engineering: gradient accumulation, mixed precision, checkpointing.
           </p>
 
           <SectionHeading id="final-thoughts">Final Thoughts</SectionHeading>
@@ -670,7 +517,6 @@ export default function FluxtuningPage() {
           <ul className="list-disc pl-6 space-y-2">
             <li><strong>Add grounding examples</strong>: Include some images generated by the base model (without "Arthur") during training. This should prevent the model from thinking all men are me.</li>
             <li><strong>Combine LoRAs</strong>: Try stacking my identity LoRA with style LoRAs. Can I make a Studio Ghibli Arthur? An oil painting Arthur? Or better yet, fine-tune a model on one of my friends and stack both identity LoRAs. Can I generate Arthur and his friend together in new scenarios? We'll see.</li>
-            <li><strong>Try newer models</strong>: FLUX was the state-of-the-art when I started this. By the time you read this, there might be something better.</li>
           </ul>
 
           <SubSectionHeading>The Recipe</SubSectionHeading>
@@ -693,10 +539,6 @@ export default function FluxtuningPage() {
           </p>
           
           <hr className="my-12 border-gray-200 dark:border-gray-800" />
-          
-          <p className="italic text-gray-600 dark:text-gray-400">
-            This post was written by Arthur, who is definitely not using AI-generated images of himself for anything nefarious. Probably.
-          </p>
           
           <p className="italic text-gray-600 dark:text-gray-400">
             Got questions? Want to see more examples? Feel free to reach out!
