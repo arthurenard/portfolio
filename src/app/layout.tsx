@@ -2,40 +2,47 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import FooterWrapper from "@/components/FooterWrapper";
-import localFont from 'next/font/local'
+import Footer from "@/components/Footer";
+import localFont from "next/font/local";
+import { Fraunces } from "next/font/google";
 import { getMetadata } from "@/data/seo";
 import { getPersonSchema, getWebsiteSchema } from "@/data/structuredData";
 import Script from "next/script";
 
-// Define the Inter font locally
 const inter = localFont({
   src: [
     {
-      path: './fonts/Inter-Regular.woff2',
-      weight: '400',
-      style: 'normal',
+      path: "./fonts/Inter-Regular.woff2",
+      weight: "400",
+      style: "normal",
     },
     {
-      path: './fonts/Inter-Medium.woff2',
-      weight: '500',
-      style: 'normal',
+      path: "./fonts/Inter-Medium.woff2",
+      weight: "500",
+      style: "normal",
     },
     {
-      path: './fonts/Inter-SemiBold.woff2',
-      weight: '600',
-      style: 'normal',
+      path: "./fonts/Inter-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
     },
     {
-      path: './fonts/Inter-Bold.woff2',
-      weight: '700',
-      style: 'normal',
+      path: "./fonts/Inter-Bold.woff2",
+      weight: "700",
+      style: "normal",
     },
   ],
-  variable: '--font-inter',
-})
+  variable: "--font-inter",
+  display: "swap",
+});
 
-// Get metadata from the data folder
+const serif = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+  axes: ["opsz"],
+});
+
 export const metadata: Metadata = getMetadata();
 
 export default function RootLayout({
@@ -43,12 +50,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Get structured data
   const personSchema = getPersonSchema();
   const websiteSchema = getWebsiteSchema();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${serif.variable}`}>
       <head>
         <Script
           id="schema-person"
@@ -81,7 +87,7 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className={inter.className}>
+      <body className="font-sans">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -90,7 +96,7 @@ export default function RootLayout({
         >
           <Navigation />
           {children}
-          <FooterWrapper />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

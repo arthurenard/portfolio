@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import PageDecorations from "@/components/PageDecorations";
 import BlogToc from "../../../components/blog/BlogToc";
 import { Metadata } from "next";
 import 'katex/dist/katex.min.css';
@@ -147,10 +146,8 @@ const TrainingTable = () => (
 
 export default function FluxtuningPage() {
   return (
-    <main className="min-h-screen relative pt-20 pb-20">
-      <PageDecorations />
-      
-      <div className="relative z-10 container mx-auto px-4 max-w-6xl">
+    <main className="min-h-screen pt-28 md:pt-32 pb-20">
+      <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-12">
           <div className="min-w-0 flex justify-center">
             <div className="max-w-3xl w-full">

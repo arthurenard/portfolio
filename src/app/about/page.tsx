@@ -2,16 +2,14 @@ import { Metadata } from "next";
 import About from "@/components/About";
 import { getPageMetadata } from "@/data/seo";
 import PageShell from "@/components/PageShell";
+import { aboutData } from "@/data/about";
 
 export const metadata: Metadata = getPageMetadata("about");
 
 export default function AboutPage() {
   return (
-    <PageShell
-      title="About Me"
-      description="Personal background, education journey through EPFL, ETH Zürich, and KTH, skills and expertise."
-    >
+    <PageShell title={aboutData.title} description={aboutData.description}>
       <About isStandalonePage={true} />
     </PageShell>
   );
-} 
+}

@@ -9,9 +9,9 @@ export default function ContactPage() {
   return (
     <PageShell
       title="Contact"
-      description="Professional contact information and links to professional networks."
+      description="Open to research collaborations and discussions."
     >
       <Contact isStandalonePage={true} />
     </PageShell>
   );
-} 
+}

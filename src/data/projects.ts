@@ -1,16 +1,17 @@
-// Define project categories
 export const projectCategories = {
   ACADEMIC: "academic",
   PERSONAL: "personal",
-  VOLUNTEER: "volunteer"
+  VOLUNTEER: "volunteer",
 } as const;
 
 export type ProjectCategory = typeof projectCategories[keyof typeof projectCategories];
 
 export type Project = {
   title: string;
-  subtitle?: string;
+  venue?: string;
+  authors?: string;
   description: string;
+  featuredDescription?: string;
   tech: string[];
   github?: string;
   demo?: string;
@@ -25,72 +26,75 @@ export type Project = {
 };
 
 export const getProjectSlug = (title: string) =>
-  title.toLowerCase().replace(/\s+/g, "-");
+  title
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
 export const projects: Project[] = [
-  // {
-  //   title: "Symbolic Math Solver",
-  //   subtitle: "Master's Thesis - ETH Zürich | Supervised by Clément Hongler - EPFL",
-  //   description:
-  //     "This research explores the intersection of functional equations, symbolic regression, and deep learning through innovative methods. I developed Symbolic Math Solver (SMS), a novel framework extending Physics-Informed Neural Networks by incorporating functional equations directly into the neural network training process. Combined with transformer-based symbolic regression, this approach successfully solved complex functional equations from International Mathematical Olympiad problems. The work demonstrates how integrating mathematical knowledge into machine learning models can tackle challenging mathematical problems, particularly in domains requiring interpretable solutions and analytical reasoning.",
-  //   tech: ["PyTorch", "Transformers", "Symbolic Regression", "Functional Equations", "Interpretable ML"],
-  //   image: "/symbolic-reg.webp",
-  //   category: projectCategories.ACADEMIC,
-  //   comingSoon: "Paper submission in preparation"
-  // },  
   {
     title: "Boolformer",
-    subtitle: "ICML 2025 | Stéphane d'Ascoli*, Arthur Renard*, Emmanuel Abbé, Clément Hongler, Vassilis Papadopoulos, Josh Susskind, Samy Bengio - APPLE, EPFL",
+    venue: "AI for Math Workshop, ICML 2025",
+    authors:
+      "Stéphane d'Ascoli*, Arthur Renard*, Emmanuel Abbé, Clément Hongler, Vassilis Papadopoulos, Josh Susskind, Samy Bengio",
     description:
-      "We introduce Boolformer, a Transformer-based model trained to perform end-to-end symbolic regression of Boolean functions. The model can predict compact formulas for complex functions not seen during training, given their full truth table. Even with incomplete or noisy observations, Boolformer is still able to find good approximate expressions. We evaluate it on real-world binary classification datasets, demonstrating its potential as an interpretable alternative to classic machine learning methods. When applied to modeling gene regulatory networks, Boolformer is competitive with state-of-the-art genetic algorithms, with a speedup of several orders of magnitude. We are currently awaiting the results of our submission.",
-    tech: ["PyTorch", "Transformers", "Academic Research","Symbolic Regression", "Interpretable ML"],
+      "A Transformer trained end-to-end for symbolic regression of Boolean functions. Predicts compact formulas from truth tables, remains robust to noisy or partial observations, and is competitive with state-of-the-art genetic algorithms on gene regulatory network inference at orders-of-magnitude lower cost.",
+    featuredDescription:
+      "A Transformer model for symbolic regression of Boolean functions, presented at the AI for Math Workshop at ICML 2025.",
+    tech: ["Transformers", "Symbolic Regression", "Interpretable ML"],
     github: "https://github.com/arthurenard/Boolformer",
     image: "/boolformer.png",
     category: projectCategories.ACADEMIC,
-    arxiv: "https://arxiv.org/pdf/2309.12207"
-    // underReview: "Under review at ICML 2025"
+    arxiv: "https://arxiv.org/pdf/2309.12207",
   },
   {
     title: "Phase Transition Finder",
-    subtitle: "GECCO 2024 | Vassilis Papadopoulos, Guilhem Doat, Arthur Renard, Clément Hongler - EPFL",
+    venue: "GECCO Companion 2024",
+    authors:
+      "Vassilis Papadopoulos, Guilhem Doat, Arthur Renard, Clément Hongler",
     description:
-      "One key challenge in Artificial Life is designing systems that display an emergence of complex behaviors. Many such systems depend on a high-dimensional parameter space, only a small subset of which displays interesting dynamics. We introduce the 'Phase Transition Finder'(PTF) algorithm, which can be used to efficiently generate parameters lying at the border between two phases. We argue that such points are more likely to display complex behaviors, and confirm this by applying PTF to Lenia, showing it increases the frequency of interesting behaviors, while remaining efficient enough for large-scale searches.",
-    tech: ["PyTorch", "Academic Research", "Complex Systems", "Artificial Life"],
+      "An algorithm that efficiently locates parameters at the border between phases in high-dimensional dynamical systems. Applied to Lenia, it doubles the frequency of interesting emergent behaviours while remaining tractable for large-scale searches.",
+    featuredDescription:
+      "An algorithm for finding phase boundaries in continuous cellular automata, presented at GECCO Companion 2024.",
+    tech: ["Complex Systems", "Artificial Life", "PyTorch"],
     github: "https://github.com/arthurenard/LeniaPTF",
     arxiv: "https://arxiv.org/abs/2402.17848",
     image: "/ptf.webp",
-    category: projectCategories.ACADEMIC
+    category: projectCategories.ACADEMIC,
   },
   {
     title: "Fluxtuning",
-    subtitle: "Personal Project | Fine-tuning FLUX.1-dev with LoRA",
+    venue: "Personal project",
     description:
-      "I trained FLUX.1-dev to generate images of myself in any scenario I can imagine. Using LoRA adapters and just 50 captioned photos, I got the model to learn my face while keeping its creative abilities intact.",
-    tech: ["PyTorch", "FLUX.1", "LoRA", "Flow Matching", "Computer Vision"],
+      "Fine-tuning FLUX.1-dev with LoRA on 50 captioned photos to generate portraits while preserving the base model's creativity. Includes a write-up of the math behind flow matching and LoRA.",
+    featuredDescription:
+      "A practical write-up on fine-tuning FLUX.1-dev with LoRA for personalised image generation.",
+    tech: ["FLUX.1", "LoRA", "Flow Matching"],
     image: "/jobs_portrait_5.jpeg",
     category: projectCategories.PERSONAL,
     page: "/blog/fluxtuning",
-    github: "https://github.com/arthurenard/Fluxtuning"
+    github: "https://github.com/arthurenard/Fluxtuning",
   },
   {
-    title: "Festival Balélec Website & App (2024)",
-    subtitle: "Volunteer Project | Festival Balélec - Europe's largest student festival",
+    title: "Festival Balélec website and app",
+    venue: "Volunteer, 2024",
     description:
-      "Designed and developed the official website and mobile app for Europe's largest student festival, serving over 15,000 participants with real-time event information, schedules, maps, and artist details.",
+      "Designed and shipped the official website and mobile app for Europe's largest student festival (15,000+ attendees), with live schedules, maps, and artist information.",
     tech: ["Next.js", "TypeScript", "Strapi"],
     demo: "https://balelec.ch/en",
     image: "/balelec.webp",
     category: projectCategories.VOLUNTEER,
-    iframe: "https://balelec.ch/fr"
+    iframe: "https://balelec.ch/fr",
   },
   {
-    title: "DEMECO Workshop Website (2025)",
-    subtitle: "Volunteer Project | Academic Workshop Website",
-    description:
-      "Created a professional website for an academic workshop.",
+    title: "DEMECO Workshop",
+    venue: "Volunteer, 2025",
+    description: "Site for an academic workshop.",
     tech: ["Next.js", "TypeScript"],
     demo: "https://www.dem.eco/",
     category: projectCategories.VOLUNTEER,
-    iframe: "https://www.dem.eco/"
+    iframe: "https://www.dem.eco/",
   },
 ];

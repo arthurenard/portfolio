@@ -1,11 +1,11 @@
 "use client";
 
 import { ReactNode } from "react";
-import PageDecorations from "@/components/PageDecorations";
+import ScrollRestoration from "@/components/ScrollRestoration";
 
 interface PageShellProps {
   title: string;
-  description: string;
+  description?: string;
   children: ReactNode;
   prelude?: ReactNode;
 }
@@ -17,16 +17,20 @@ export default function PageShell({
   prelude,
 }: PageShellProps) {
   return (
-    <main className="min-h-screen relative pt-20">
+    <main className="min-h-screen pt-28 md:pt-32">
+      <ScrollRestoration />
       {prelude}
-      <PageDecorations />
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800 dark:text-white">
-          {title}
-        </h1>
-        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
-          {description}
-        </p>
+      <div className="container mx-auto px-4 max-w-4xl">
+        <header className="mb-14 md:mb-20">
+          <h1 className="display-serif text-4xl md:text-5xl font-medium text-foreground">
+            {title}
+          </h1>
+          {description && (
+            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl">
+              {description}
+            </p>
+          )}
+        </header>
         {children}
       </div>
     </main>

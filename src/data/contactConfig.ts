@@ -12,10 +12,10 @@ export const contactConfig = {
     subjectPrefix: '[Portfolio Contact]',
     
     // Success message shown after form submission
-    successMessage: "Thank you for your message! I'll get back to you as soon as possible.",
+    successMessage: "Thank you for your message. I will get back to you shortly.",
     
     // Error message shown if form submission fails
-    errorMessage: "There was an error submitting your message. Please try again.",
+    errorMessage: "Something went wrong sending the message. Please try again.",
     
     // Form fields configuration
     fields: {
@@ -43,7 +43,7 @@ export const contactConfig = {
     },
     
     // Submit button text
-    submitButtonText: 'Send Message',
+    submitButtonText: 'Send message',
     
     // Submit button loading text
     submitButtonLoadingText: 'Sending...',

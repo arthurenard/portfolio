@@ -7,11 +7,8 @@ export const metadata: Metadata = getPageMetadata("experience");
 
 export default function ExperiencePage() {
   return (
-    <PageShell
-      title="Experience"
-      description="Expanded version of my professional experience, including work at Xent Labs, research at EPFL, teaching experience, and industry projects."
-    >
+    <PageShell title="Experience">
       <Experience isStandalonePage={true} />
     </PageShell>
   );
-} 
+}

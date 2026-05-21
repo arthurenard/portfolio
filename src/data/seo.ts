@@ -57,7 +57,6 @@ export const getMetadata = (): Metadata => {
     creator: siteMetadata.creator,
     openGraph: siteMetadata.openGraph,
     metadataBase: new URL(siteMetadata.url),
-    // manifest: "/favicons/site.webmanifest",
     appleWebApp: {
       capable: true,
       title: siteMetadata.title,

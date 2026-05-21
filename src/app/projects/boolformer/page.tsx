@@ -4,8 +4,6 @@ import { getResearchProjectSchema } from "@/data/structuredData";
 import Script from "next/script";
 import { boolformerContent } from "@/data/boolformer";
 import { BookOpen, Github } from "lucide-react";
-import PageDecorations from "@/components/PageDecorations";
-
 export const metadata: Metadata = {
   title: boolformerContent.title,
   description: boolformerContent.abstract,
@@ -46,14 +44,12 @@ export default function BoolformerPage() {
   );
 
   return (
-    <main className="min-h-screen relative pt-20">
-      {/* Structured data */}
+    <main className="min-h-screen pt-28 md:pt-32">
       <Script
         id="schema-boolformer"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
       />
-      <PageDecorations />
 
       {/* Navigation Menu - Fixed on the left for desktop, top for mobile */}
       <nav className="fixed left-0 top-20 bottom-0 w-64 p-6 overflow-y-auto hidden lg:block bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-r border-gray-200 dark:border-gray-800">
@@ -116,11 +112,14 @@ export default function BoolformerPage() {
           </h1>
 
           <div className="flex flex-wrap gap-2 mb-6">
-            <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full text-sm">PyTorch</span>
-            <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-100 rounded-full text-sm">Transformers</span>
-            <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100 rounded-full text-sm">Academic Research</span>
-            <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-100 rounded-full text-sm">Symbolic Regression</span>
-            <span className="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-100 rounded-full text-sm">Interpretable ML</span>
+            {["PyTorch", "Transformers", "Symbolic Regression", "Interpretable ML"].map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-0.5 text-xs text-muted-foreground border border-border rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-4 mb-8">

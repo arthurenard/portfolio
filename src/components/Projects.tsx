@@ -1,360 +1,286 @@
-"use client";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Github, ExternalLink, FileText, Clock, BookOpen } from "lucide-react";
+import { Github, ExternalLink, FileText, Clock, BookOpen, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { getProjectSlug, projects, projectCategories, type Project } from "@/data/projects";
-import { useIsMobile } from "@/lib/useIsMobile";
 import SectionHeader from "@/components/SectionHeader";
 
-// Project type imported from data
-
-// Define the Projects component props
 interface ProjectsProps {
   isStandalonePage?: boolean;
 }
 
-export default function Projects({ isStandalonePage = false }: ProjectsProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
-  const isMobile = useIsMobile();
+const linkClass =
+  "inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors";
 
-  // Skip animations on mobile or standalone page for better performance
-  const shouldAnimate = !isMobile && !isStandalonePage;
+function ProjectLinks({ project }: { project: Project }) {
+  return (
+    <div className="flex flex-wrap gap-x-5 gap-y-2">
+      {project.page && (
+        <Link href={project.page} className={linkClass}>
+          <BookOpen className="w-3.5 h-3.5" />
+          Write-up
+        </Link>
+      )}
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          <Github className="w-3.5 h-3.5" />
+          Code
+        </a>
+      )}
+      {project.demo && (
+        <a
+          href={project.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          <ExternalLink className="w-3.5 h-3.5" />
+          Live site
+        </a>
+      )}
+      {project.arxiv && (
+        <a
+          href={project.arxiv}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          <FileText className="w-3.5 h-3.5" />
+          arXiv
+        </a>
+      )}
+      {project.comingSoon && (
+        <span className={`${linkClass} cursor-default`}>
+          <Clock className="w-3.5 h-3.5" />
+          {project.comingSoon}
+        </span>
+      )}
+      {project.underReview && (
+        <span className={`${linkClass} cursor-default`}>
+          <Clock className="w-3.5 h-3.5" />
+          {project.underReview}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function AcademicProject({ project }: { project: Project }) {
+  return (
+    <article
+      id={getProjectSlug(project.title)}
+      className="scroll-mt-28 grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-12 items-start"
+    >
+      <div>
+        <div className="flex items-baseline gap-3 flex-wrap">
+          <h3 className="display-serif text-2xl md:text-3xl font-medium text-foreground">
+            {project.title}
+          </h3>
+          {project.venue && (
+            <span className="text-sm text-muted-foreground">{project.venue}</span>
+          )}
+        </div>
+        {project.authors && (
+          <p className="mt-2 text-sm text-muted-foreground">{project.authors}</p>
+        )}
+        <p className="mt-4 text-foreground/85 leading-relaxed">
+          {project.description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="px-2.5 py-0.5 text-xs text-muted-foreground border border-border rounded-full"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="mt-5">
+          <ProjectLinks project={project} />
+        </div>
+      </div>
+
+      {project.image && (
+        <div className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden rounded-md border border-border">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover"
+            sizes="(min-width: 768px) 280px, 100vw"
+          />
+        </div>
+      )}
+    </article>
+  );
+}
+
+function PersonalProject({ project }: { project: Project }) {
+  const TitleTag = project.page ? Link : "span";
+  const titleProps = project.page ? { href: project.page } : {};
 
   return (
-    <section
-      id="projects"
-      ref={ref}
-      className={`py-16 ${isStandalonePage ? "" : "min-h-screen"}`}
+    <article
+      id={getProjectSlug(project.title)}
+      className="scroll-mt-28 grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-12 items-start"
     >
+      <div>
+        <div className="flex items-baseline gap-3 flex-wrap">
+          <TitleTag
+            {...(titleProps as { href: string })}
+            className="display-serif text-2xl md:text-3xl font-medium text-foreground hover:text-primary transition-colors"
+          >
+            {project.title}
+          </TitleTag>
+          {project.venue && (
+            <span className="text-sm text-muted-foreground">{project.venue}</span>
+          )}
+        </div>
+        <p className="mt-4 text-foreground/85 leading-relaxed">
+          {project.description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="px-2.5 py-0.5 text-xs text-muted-foreground border border-border rounded-full"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="mt-5">
+          <ProjectLinks project={project} />
+        </div>
+      </div>
+
+      {project.image && (
+        <div className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden rounded-md border border-border">
+          {project.page ? (
+            <Link href={project.page} className="block w-full h-full">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 280px, 100vw"
+              />
+            </Link>
+          ) : (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 280px, 100vw"
+            />
+          )}
+        </div>
+      )}
+    </article>
+  );
+}
+
+function VolunteerProject({ project }: { project: Project }) {
+  return (
+    <li id={getProjectSlug(project.title)} className="scroll-mt-28 py-6">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 md:gap-6">
+        <div>
+          <div className="flex items-baseline gap-3 flex-wrap">
+            {project.demo ? (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="display-serif text-xl font-medium text-foreground hover:text-primary transition-colors inline-flex items-center gap-1.5"
+              >
+                {project.title}
+                <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
+              </a>
+            ) : (
+              <span className="display-serif text-xl font-medium text-foreground">
+                {project.title}
+              </span>
+            )}
+            {project.venue && (
+              <span className="text-sm text-muted-foreground">{project.venue}</span>
+            )}
+          </div>
+          <p className="mt-2 text-muted-foreground leading-relaxed max-w-2xl">
+            {project.description}
+          </p>
+        </div>
+        <div className="text-sm text-muted-foreground md:text-right md:pt-1.5">
+          {project.tech.slice(0, 3).join(" · ")}
+        </div>
+      </div>
+    </li>
+  );
+}
+
+export default function Projects({ isStandalonePage = false }: ProjectsProps) {
+  const academic = (projects as Project[]).filter(
+    (p) => p.category === projectCategories.ACADEMIC
+  );
+  const personal = (projects as Project[]).filter(
+    (p) => p.category === projectCategories.PERSONAL
+  );
+  const volunteer = (projects as Project[]).filter(
+    (p) => p.category === projectCategories.VOLUNTEER
+  );
+
+  return (
+    <section id="projects">
       {!isStandalonePage && (
-        <SectionHeader
-          title="Projects"
-          description="Here are some of my recent projects. Click on each for more details."
-        />
+        <div className="container mx-auto px-4 max-w-4xl">
+          <SectionHeader title="Projects" />
+        </div>
       )}
 
-      <div className="container mx-auto px-4">
-        {/* Academic Research Projects */}
-        <div className="mb-20">
-          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-gray-800 dark:text-white inline-block border-b-2 border-indigo-500 pb-2">
-            Academic Research
-          </h3>
-          <div className="space-y-24">
-            {(projects as Project[])
-              .filter(project => project.category === projectCategories.ACADEMIC)
-              .map((project, index) => (
-                <motion.div
-                  key={project.title}
-                  id={getProjectSlug(project.title)}
-                  initial={shouldAnimate ? { opacity: 0, y: 50 } : undefined}
-                  animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }) : undefined}
-                  transition={shouldAnimate ? { duration: 0.6, delay: index * 0.1 } : undefined}
-                  className={`scroll-mt-28 flex flex-col ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  } gap-8 md:gap-12`}
-                >
-                  <div className="flex-1 space-y-4">
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">{project.title}</h3>
-                    {project.subtitle && (
-                      <p className="text-indigo-600 dark:text-indigo-400 text-sm font-medium italic">
-                        {project.subtitle}
-                      </p>
-                    )}
-                    <div className="relative">
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {project.description}
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.tech.map((tech, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex flex-wrap gap-4 pt-4">
-                      {project.page && (
-                        <Link
-                          href={project.page}
-                          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200"
-                        >
-                          <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                          <span>View Details</span>
-                        </Link>
-                      )}
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200"
-                        >
-                          <Github className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                          <span>GitHub</span>
-                        </a>
-                      )}
-                      {project.demo && (
-                        <a
-                          href={project.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200"
-                        >
-                          <ExternalLink className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                          <span>Demo</span>
-                        </a>
-                      )}
-                      {project.arxiv && (
-                        <a
-                          href={project.arxiv}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200"
-                        >
-                          <FileText className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                          <span>arXiv</span>
-                        </a>
-                      )}
-                      {project.comingSoon && (
-                        <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-gray-200">
-                          <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                          <span>{project.comingSoon}</span>
-                        </div>
-                      )}
-                      {project.underReview && (
-                        <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm text-gray-800 dark:text-gray-200">
-                          <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                          <span>{project.underReview}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex-1 h-[300px] md:h-[400px] bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm rounded-xl shadow-lg relative overflow-hidden">
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 dark:from-indigo-400/10 dark:to-purple-400/10" />
-                  </div>
-                </motion.div>
+      <div className={isStandalonePage ? "space-y-24" : "container mx-auto px-4 max-w-4xl space-y-24"}>
+        {academic.length > 0 && (
+          <div>
+            <h2 className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-10">
+              Research
+            </h2>
+            <div className="space-y-16 md:space-y-20">
+              {academic.map((project) => (
+                <AcademicProject key={project.title} project={project} />
               ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Personal Projects */}
-        <div className="mb-20 flex flex-col items-center">
-          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-gray-800 dark:text-white inline-block border-b-2 border-indigo-500 pb-2 self-start">
-            Personal Projects
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full justify-center">
-            {(projects as Project[])
-              .filter(project => project.category === projectCategories.PERSONAL)
-              .map((project, index, filteredArray) => (
-                <motion.div
-                  key={project.title}
-                  id={getProjectSlug(project.title)}
-                  initial={shouldAnimate ? { opacity: 0, y: 30 } : undefined}
-                  animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }) : undefined}
-                  transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
-                  className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col h-full group hover:shadow-lg transition-all duration-300 ${
-                    filteredArray.length === 1 ? "md:col-span-2 lg:col-span-3 max-w-sm mx-auto" : ""
-                  }`}
-                >
-                  <div className="relative aspect-square overflow-hidden">
-                    {project.page ? (
-                      <Link href={project.page} className="block w-full h-full">
-                        {project.image ? (
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
-                        )}
-                      </Link>
-                    ) : (
-                      <>
-                        {project.image ? (
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
-                        )}
-                      </>
-                    )}
-                  </div>
-                  
-                  <div className="p-5 flex flex-col flex-grow">
-                    {project.page ? (
-                      <Link href={project.page} className="group/title">
-                        <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 group-hover/title:text-indigo-600 dark:group-hover/title:text-indigo-400 transition-colors line-clamp-1">
-                          {project.title}
-                        </h4>
-                      </Link>
-                    ) : (
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
-                        {project.title}
-                      </h4>
-                    )}
-                    <p className="text-gray-600 dark:text-gray-300 text-xs mb-4 leading-relaxed line-clamp-3">
-                      {project.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {project.tech.slice(0, 3).map((tech, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-[10px] rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
-                      {project.page && (
-                        <Link
-                          href={project.page}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200 text-xs"
-                        >
-                          <BookOpen className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                          <span>Read Blog</span>
-                        </Link>
-                      )}
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-gray-800 dark:text-gray-200 text-xs"
-                        >
-                          <Github className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                          <span>GitHub</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
+        {personal.length > 0 && (
+          <div>
+            <h2 className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-10">
+              Personal
+            </h2>
+            <div className="space-y-16 md:space-y-20">
+              {personal.map((project) => (
+                <PersonalProject key={project.title} project={project} />
               ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Volunteer Projects */}
-        <div className="mb-20">
-          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-gray-800 dark:text-white inline-block border-b-2 border-indigo-500 pb-2">
-            Volunteer Projects
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {(projects as Project[])
-              .filter(project => project.category === projectCategories.VOLUNTEER)
-              .map((project, index) => (
-                <motion.div
-                  key={project.title}
-                  initial={shouldAnimate ? { opacity: 0, y: 30 } : undefined}
-                  animate={shouldAnimate ? (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }) : undefined}
-                  transition={shouldAnimate ? { duration: 0.5, delay: index * 0.1 } : undefined}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 p-6 flex flex-col h-full"
-                >
-                  <div className="flex items-start gap-4 mb-4">
-                    {/* Project Icon */}
-                    <div className="flex-shrink-0">
-                      {project.demo ? (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="block hover:opacity-80 transition-opacity">
-                          <div className="relative w-16 h-16 bg-white rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-center p-2">
-                            <Image
-                              src={`https://www.google.com/s2/favicons?domain=${new URL(project.demo).hostname}&sz=128`}
-                              alt={`${project.title} icon`}
-                              width={48}
-                              height={48}
-                              className="w-full h-full object-contain"
-                              unoptimized
-                            />
-                          </div>
-                        </a>
-                      ) : (
-                        <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 dark:from-indigo-500/30 dark:to-purple-500/30" />
-                      )}
-                    </div>
-
-                    {/* Project Header */}
-                    <div>
-                      {project.demo ? (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="group/title">
-                          <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-1 group-hover/title:text-indigo-600 dark:group-hover/title:text-indigo-400 transition-colors">
-                            {project.title}
-                          </h4>
-                        </a>
-                      ) : (
-                        <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-1">{project.title}</h4>
-                      )}
-                      {project.subtitle && (
-                        <p className="text-indigo-600 dark:text-indigo-400 text-sm">
-                          {project.subtitle}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Project Details */}
-                  <div className="flex-grow">
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 leading-relaxed">
-                      {project.description.length > 240
-                        ? `${project.description.substring(0, 240)}...`
-                        : project.description}
-                    </p>
-                  </div>
-                  
-                  <div className="mt-auto">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.slice(0, 3).map((tech, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.tech.length > 4 && (
-                        <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs rounded-full">
-                          +{project.tech.length - 3} more
-                        </span>
-                      )}
-                    </div>
-                    
-                    {project.demo && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-sm hover:underline font-medium"
-                      >
-                        <ExternalLink className="w-3 h-3" />
-                        <span>Visit Website</span>
-                      </a>
-                    )}
-                  </div>
-                </motion.div>
+        {volunteer.length > 0 && (
+          <div>
+            <h2 className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-6">
+              Other work
+            </h2>
+            <ul className="divide-y divide-border border-y border-border">
+              {volunteer.map((project) => (
+                <VolunteerProject key={project.title} project={project} />
               ))}
+            </ul>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

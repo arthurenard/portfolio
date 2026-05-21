@@ -1,6 +1,5 @@
 export interface AboutData {
   title: string;
-  subtitle: string;
   description: string;
   paragraphs: string[];
   profileImage: {
@@ -8,31 +7,22 @@ export interface AboutData {
     alt: string;
   };
   educationTitle: string;
-  educationSectionTitle: string;
   skillsTitle: string;
-  technicalExpertiseTitle: string;
-  languagesTitle: string;
-  certificationsTitle: string;
 }
 
 export const aboutData: AboutData = {
-  title: "About Me",
-  subtitle: "Applied Mathematician & AI Researcher",
-  description: "Learn about my background, education, and skills.",
+  title: "About",
+  description:
+    "Applied mathematician working on machine learning, currently building games and evaluations for language models.",
   paragraphs: [
-    "My academic journey has taken me through EPFL for my Bachelor's in Mathematics, ETH Zürich for my Master's in Applied Mathematics, and included an exchange year at KTH Royal Institute of Technology in Stockholm.",
-    "I'm passionate about cutting-edge research and contributing to transformative advancements in AI. My work focuses on mathematical reasoning with deep learning, where I've developed novel approaches combining symbolic methods with LLMs. I've also ventured into artificial life research, contributing to the development of algorithms to discover complex emergent behaviors in high-dimensional systems.",
-    "Currently at Xent Labs, I work on Xent Games — a new, truly general space of games for LLMs with an unbounded spectrum of difficulty. LLM agents play in LLM-defined environments, with rules enforced by LLMs and outcomes scored in bits, providing a measurable path toward superintelligence by eliciting deep skills such as originality, counterfactual reasoning, critical thinking, cooperation, persuasion, anticipation, and anomaly detection.",
-    "Beyond research, I've been actively involved in student organizations, including Festival Balélec, Europe's largest student festival. I've also worked as a freelance web developer, creating professional websites for various businesses and organizations, which has given me valuable experience in translating complex requirements into user-friendly solutions."
+    "Originally from Belgium, I moved to Switzerland to study mathematics at EPFL and applied mathematics at ETH Zürich",
+    "I am currently a founding engineer and ML researcher at Xent Labs, where we develop Xent Games: an open-ended space of games for language models that produces measurable signals on reasoning, anticipation and cooperation.",
+    "Outside of research, I have built and shipped production websites for organisations including Festival Balélec, Europe's largest student festival.",
   ],
   profileImage: {
     src: "/profile.jpg",
-    alt: "Arthur Renard"
+    alt: "Arthur Renard",
   },
-  educationTitle: "Education & Skills",
-  educationSectionTitle: "Education",
-  skillsTitle: "Technical Expertise",
-  technicalExpertiseTitle: "Technical Expertise",
-  languagesTitle: "Languages",
-  certificationsTitle: "Certifications & Honors"
-}; 
+  educationTitle: "Education",
+  skillsTitle: "Skills",
+};
