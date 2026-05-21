@@ -106,13 +106,13 @@ function AcademicProject({ project }: { project: Project }) {
       </div>
 
       {project.image && (
-        <div className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden rounded-md border border-border">
+        <div className="relative w-full max-w-xs mx-auto md:max-w-none aspect-square overflow-hidden rounded-md border border-border">
           <Image
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover"
-            sizes="(min-width: 768px) 280px, 100vw"
+            className="object-cover object-center"
+            sizes="(min-width: 768px) 280px, 320px"
           />
         </div>
       )}
@@ -160,15 +160,15 @@ function PersonalProject({ project }: { project: Project }) {
       </div>
 
       {project.image && (
-        <div className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden rounded-md border border-border">
+        <div className="relative w-full max-w-xs mx-auto md:max-w-none aspect-square overflow-hidden rounded-md border border-border">
           {project.page ? (
-            <Link href={project.page} className="block w-full h-full">
+            <Link href={project.page} className="absolute inset-0 block">
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
-                className="object-cover"
-                sizes="(min-width: 768px) 280px, 100vw"
+                className="object-cover object-center"
+                sizes="(min-width: 768px) 280px, 320px"
               />
             </Link>
           ) : (
@@ -176,8 +176,8 @@ function PersonalProject({ project }: { project: Project }) {
               src={project.image}
               alt={project.title}
               fill
-              className="object-cover"
-              sizes="(min-width: 768px) 280px, 100vw"
+              className="object-cover object-center"
+              sizes="(min-width: 768px) 280px, 320px"
             />
           )}
         </div>
