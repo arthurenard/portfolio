@@ -87,6 +87,11 @@ function AcademicProject({ project }: { project: Project }) {
         {project.authors && (
           <p className="mt-2 text-sm text-muted-foreground">{project.authors}</p>
         )}
+        {project.institutions && project.institutions.length > 0 && (
+          <p className="mt-1 text-xs tracking-[0.05em] text-muted-foreground">
+            {project.institutions.join(" · ")}
+          </p>
+        )}
         <p className="mt-4 text-foreground/85 leading-relaxed">
           {project.description}
         </p>

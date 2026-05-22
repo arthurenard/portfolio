@@ -10,6 +10,7 @@ export type Project = {
   title: string;
   venue?: string;
   authors?: string;
+  institutions?: string[];
   description: string;
   featuredDescription?: string;
   tech: string[];
@@ -39,6 +40,7 @@ export const projects: Project[] = [
     venue: "AI for Math Workshop, ICML 2025",
     authors:
       "Stéphane d'Ascoli*, Arthur Renard*, Emmanuel Abbé, Clément Hongler, Vassilis Papadopoulos, Josh Susskind, Samy Bengio",
+    institutions: ["EPFL", "Apple"],
     description:
       "A Transformer trained end-to-end for symbolic regression of Boolean functions. Predicts compact formulas from truth tables, remains robust to noisy or partial observations, and is competitive with state-of-the-art genetic algorithms on gene regulatory network inference at orders-of-magnitude lower cost.",
     featuredDescription:
@@ -54,6 +56,7 @@ export const projects: Project[] = [
     venue: "GECCO Companion 2024",
     authors:
       "Vassilis Papadopoulos, Guilhem Doat, Arthur Renard, Clément Hongler",
+    institutions: ["EPFL"],
     description:
       "An algorithm that efficiently locates parameters at the border between phases in high-dimensional dynamical systems. Applied to Lenia, it doubles the frequency of interesting emergent behaviours while remaining tractable for large-scale searches.",
     featuredDescription:
