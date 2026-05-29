@@ -242,12 +242,12 @@ export default function Projects({ isStandalonePage = false }: ProjectsProps) {
   return (
     <section id="projects">
       {!isStandalonePage && (
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-4xl 3xl:max-w-6xl">
           <SectionHeader title="Projects" />
         </div>
       )}
 
-      <div className={isStandalonePage ? "space-y-24" : "container mx-auto px-4 max-w-4xl space-y-24"}>
+      <div className={isStandalonePage ? "space-y-24" : "container mx-auto px-4 max-w-4xl 3xl:max-w-6xl space-y-24"}>
         {academic.length > 0 && (
           <div>
             <h2 className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-10">

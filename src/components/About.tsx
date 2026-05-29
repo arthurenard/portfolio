@@ -13,12 +13,12 @@ export default function About({ isStandalonePage = false }: AboutProps) {
   return (
     <section id="about" className="py-2">
       {!isStandalonePage && (
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-4xl 3xl:max-w-6xl">
           <SectionHeader title={aboutData.title} description={aboutData.description} />
         </div>
       )}
 
-      <div className={isStandalonePage ? "" : "container mx-auto px-4 max-w-4xl"}>
+      <div className={isStandalonePage ? "" : "container mx-auto px-4 max-w-4xl 3xl:max-w-6xl"}>
         <div className="grid grid-cols-1 md:grid-cols-[1fr_220px] gap-10 md:gap-14 items-start">
           <div className="space-y-5 text-base md:text-lg leading-relaxed text-foreground/85">
             {aboutData.paragraphs.map((paragraph, index) => (

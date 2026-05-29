@@ -4,7 +4,7 @@ import { personalInfo } from "@/data/personal";
 export default function Hero() {
   return (
     <section className="min-h-[88vh] flex items-center">
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4 max-w-4xl 3xl:max-w-6xl">
         <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground mb-6">
           {personalInfo.location}
         </p>

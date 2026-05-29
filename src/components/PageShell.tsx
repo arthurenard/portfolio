@@ -20,7 +20,7 @@ export default function PageShell({
     <main className="min-h-screen pt-28 md:pt-32">
       <ScrollRestoration />
       {prelude}
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4 max-w-4xl 3xl:max-w-6xl">
         <header className="mb-14 md:mb-20">
           <h1 className="display-serif text-4xl md:text-5xl font-medium text-foreground">
             {title}

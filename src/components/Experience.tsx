@@ -66,12 +66,12 @@ export default function Experience({ isStandalonePage = false }: ExperienceProps
   return (
     <section id="experience">
       {!isStandalonePage && (
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-4xl 3xl:max-w-6xl">
           <SectionHeader title="Experience" />
         </div>
       )}
 
-      <div className={isStandalonePage ? "" : "container mx-auto px-4 max-w-4xl"}>
+      <div className={isStandalonePage ? "" : "container mx-auto px-4 max-w-4xl 3xl:max-w-6xl"}>
         <div className="mb-16">
           <h3 className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-6">
             Work

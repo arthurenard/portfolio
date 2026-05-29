@@ -7,7 +7,7 @@ export default function FeaturedProjects() {
 
   return (
     <section className="py-20 md:py-28">
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4 max-w-4xl 3xl:max-w-6xl">
         <div className="flex items-baseline justify-between mb-10">
           <h2 className="display-serif text-2xl md:text-3xl font-medium text-foreground">
             Selected work

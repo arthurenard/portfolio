@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        "3xl": "1920px",
+      },
       fontFamily: {
         sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
         serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],

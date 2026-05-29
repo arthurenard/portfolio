@@ -12,7 +12,7 @@ export default function Contact({ isStandalonePage = false }: ContactProps) {
   return (
     <section id="contact">
       {!isStandalonePage && (
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-4xl 3xl:max-w-6xl">
           <SectionHeader
             title="Contact"
             description="Open to research collaborations and discussions."
@@ -20,7 +20,7 @@ export default function Contact({ isStandalonePage = false }: ContactProps) {
         </div>
       )}
 
-      <div className={isStandalonePage ? "" : "container mx-auto px-4 max-w-4xl"}>
+      <div className={isStandalonePage ? "" : "container mx-auto px-4 max-w-4xl 3xl:max-w-6xl"}>
         <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-12 md:gap-16">
           <div>
             <h3 className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-6">

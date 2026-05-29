@@ -36,6 +36,36 @@ export const getProjectSlug = (title: string) =>
 
 export const projects: Project[] = [
   {
+    title: "Cross-Entropy Games and Frost Training",
+    venue: "Preprint, 2026",
+    authors:
+      "Arthur Renard, Franck Gabriel, Valentin Hartmann, Clément Hongler",
+    institutions: ["Xent Labs", "Université Lyon 1"],
+    description:
+      "Frost Training improves Monte Carlo policy optimization for Cross-Entropy Games by exploiting the gradient of the reward in embedding space. The signal behind the GCG jailbreaking technique is repurposed to boost training: applied to GRPO for maximum-likelihood infilling, it reaches higher best-of-k scores faster.",
+    featuredDescription:
+      "A method that uses reward gradients in embedding space to accelerate GRPO training on Cross-Entropy Games.",
+    tech: ["LLMs", "GRPO", "Reinforcement Learning"],
+    arxiv: "https://arxiv.org/abs/2605.27701",
+    image: "/frost.png",
+    category: projectCategories.ACADEMIC,
+  },
+  {
+    title: "Cognitive Training for Language Models",
+    venue: "Preprint, 2026",
+    authors:
+      "Clément Hongler, Franck Gabriel, Valentin Hartmann, Arthur Renard, Andrew Emil",
+    institutions: ["Xent Labs"],
+    description:
+      "A framework for automatically growing a curriculum of tasks that builds general capabilities in language models through relevant skill discovery. Using Cross-Entropy Games, the paper shows that greedy curriculum learning admits essentially a single meta-objective (up to a few hyper-parameters), yielding a principled process called cognitive training.",
+    featuredDescription:
+      "A principled framework for relevant skill discovery in language models via Cross-Entropy Games.",
+    tech: ["LLMs", "Curriculum Learning", "Optimization"],
+    arxiv: "https://arxiv.org/abs/2603.22479",
+    image: "/cognitive-training.png",
+    category: projectCategories.ACADEMIC,
+  },
+  {
     title: "Boolformer",
     venue: "AI for Math Workshop, ICML 2025",
     authors:
